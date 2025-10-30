@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP11" creationDateTime="2025-10-30T15:16:41.3587483" />
-  <contentHeader name="ifmCR711S_TemplateProject" version="2.4.10.0" modificationDateTime="2025-10-30T14:41:14.6047284" organization="ifm electronic">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP11" creationDateTime="2025-10-30T15:49:50.2810893" />
+  <contentHeader name="ifmCR711S_TemplateProject" version="2.4.10.0" modificationDateTime="2025-10-30T15:49:31.8529249" organization="ifm electronic">
     <Comment>Project template with CR711S configured 2.25MByte Standard 2.25MByte Safety</Comment>
     <coordinateInfo>
       <fbd>
@@ -7075,6 +7075,12 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
 	//Motor Drive Power ON Test
 	OUT0103.VAR_IN.uiValue := 1;
 	OUT0104.VAR_IN.uiValue := 1;
+	//lgt Test Code 
+	OUT0103.VAR_IN.uiValue := 1;
+	OUT0103.VAR_IN.uiValue := 1;
+	OUT0103.VAR_IN.uiValue := 1;
+	OUT0103.VAR_IN.uiValue := 1;
+	OUT0103.VAR_IN.uiValue := 1;
 END_IF</xhtml>
                       </ST>
                     </body>
