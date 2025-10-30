@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP11" creationDateTime="2025-10-30T15:49:50.2810893" />
-  <contentHeader name="ifmCR711S_TemplateProject" version="2.4.10.0" modificationDateTime="2025-10-30T15:49:31.8529249" organization="ifm electronic">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP11" creationDateTime="2025-10-30T21:57:42.5805637" />
+  <contentHeader name="ifmCR711S_TemplateProject" version="2.4.10.0" modificationDateTime="2025-10-30T21:56:12.5992164" organization="ifm electronic">
     <Comment>Project template with CR711S configured 2.25MByte Standard 2.25MByte Safety</Comment>
     <coordinateInfo>
       <fbd>
@@ -5350,22 +5350,22 @@ outputVar1 := outputVar2;
       <configuration name="StandardPLC">
         <resource name="Application">
           <task name="Task_10ms" interval="PT0.01S" priority="3">
-            <pouInstance name="POU_RC" typeName="">
+            <pouInstance name="POU_Main_sfc" typeName="">
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
               </documentation>
             </pouInstance>
-            <pouInstance name="POU_PW_Seq" typeName="">
+            <pouInstance name="POU_PW_Seq_sfc" typeName="">
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
               </documentation>
             </pouInstance>
-            <pouInstance name="POU_MD" typeName="">
+            <pouInstance name="POU_RC_sfc" typeName="">
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
               </documentation>
             </pouInstance>
-            <pouInstance name="POU_MAIN" typeName="">
+            <pouInstance name="POU_MD_sfc" typeName="">
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
               </documentation>
@@ -5403,11 +5403,38 @@ outputVar1 := outputVar2;
               </data>
             </addData>
           </globalVars>
-          <globalVars name="GVL_PW">
+          <globalVars name="GVL">
+            <variable name="MODE_RC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="1" />
+              </initialValue>
+            </variable>
+            <variable name="MODE_MD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="1" />
+              </initialValue>
+            </variable>
+            <variable name="INIT_COMPLETE">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
             <variable name="blPW_Key">
               <type>
                 <BOOL />
               </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">IN0800 Power On SW (Key)</xhtml>
               </documentation>
@@ -5416,6 +5443,9 @@ outputVar1 := outputVar2;
               <type>
                 <BOOL />
               </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">IN0300 MC #01 VCU Power Line On</xhtml>
               </documentation>
@@ -5424,6 +5454,9 @@ outputVar1 := outputVar2;
               <type>
                 <BOOL />
               </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">IN0301 MC #02 HPU Pump On</xhtml>
               </documentation>
@@ -5432,6 +5465,9 @@ outputVar1 := outputVar2;
               <type>
                 <BOOL />
               </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">IN0400 MC #03 HPU Air Cooler On</xhtml>
               </documentation>
@@ -5440,9 +5476,198 @@ outputVar1 := outputVar2;
               <type>
                 <BOOL />
               </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml">IN0401 MC #04 HPU Heater On</xhtml>
               </documentation>
+            </variable>
+            <variable name="blPW_PDU_BCU_READY">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
+            <variable name="blPW_MD1_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">MotorDriver_1 CAN3 Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_MD2_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">MotorDriver_2 CAN3 Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_EHPS_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">EHPS CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_MD1_KEY_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">MotorDriver_1 Key On OUT0103</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_MD2_KEY_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">MotorDriver_2 Key On OUT0104</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_DCDC1_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">DCDC_1 CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_DCDC2_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">DCDC_2 CAN2 Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_LVCG_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">DCDC_1 CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_LVBAT_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">DCDC_2 CAN2 Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_TMS01_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">LV_BAT Cooling Unit CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_TMS02_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Motor1 Cooling Unit CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_TMS03_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Motor2 Cooling Unit CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_TMS04_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">MDRV1 Cooling Unit CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_TMS05_ON">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">MDRV2 Cooling Unit CAN2A Recieve Flag</xhtml>
+              </documentation>
+            </variable>
+            <variable name="blPW_MD1_START">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
+            <variable name="blPW_MD2_START">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
+            <variable name="blPW_EHPS_START">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
             </variable>
             <addData>
               <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
@@ -5451,7 +5676,7 @@ outputVar1 := outputVar2;
                 </Attributes>
               </data>
               <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                <ObjectId>e1041269-61ce-4b21-be9f-bd4685831828</ObjectId>
+                <ObjectId>a02039b1-b71d-4e7f-84c7-d67af8ac9bb3</ObjectId>
               </data>
             </addData>
           </globalVars>
@@ -6582,7 +6807,163 @@ config_outgroups();
               </pou>
             </data>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-              <pou name="POU_RC" pouType="program">
+              <pou name="POU_MD_sfc" pouType="program">
+                <interface />
+                <actions>
+                  <action name="ACT_MD_Init_entry_st">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>724b859e-19b5-4313-b7b5-7d76963f46f2</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                </actions>
+                <body>
+                  <SFC>
+                    <step localId="0" initialStep="true" name="Init">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="1">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>GVL.INIT_COMPLETE and GVL.MODE_MD </expression>
+                    </inVariable>
+                    <transition localId="2">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="1" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">GVL.INIT_COMPLETE and GVL.MODE_MD </attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="3" name="MD_INIT">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="2" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">MD_INIT</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                            <attribute guid="a6b08bd8-b696-47e3-9cbf-7408b61c9ff8">ACT_MD_Init_entry_st</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="4">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>not GVL.MODE_MD</expression>
+                    </inVariable>
+                    <transition localId="5">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="4" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">not GVL.MODE_MD</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <jumpStep localId="6" targetName="Init">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="5" />
+                      </connectionPointIn>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </jumpStep>
+                  </SFC>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                    <SFCSettings>
+                      <LibTitle>IecSfc</LibTitle>
+                      <LibCompany>System</LibCompany>
+                      <LibVersion>3.4.2.0</LibVersion>
+                      <LibNamespace>IecSfc</LibNamespace>
+                      <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                      <UseDefaults>false</UseDefaults>
+                      <Flags>
+                        <EnableLimit Declare="true" Use="false" />
+                        <Init Declare="true" Use="false" />
+                        <Reset Declare="true" Use="false" />
+                        <QuitError Declare="true" Use="false" />
+                        <Pause Declare="true" Use="false" />
+                        <Error Declare="true" Use="false" />
+                        <Trans Declare="true" Use="false" />
+                        <ErrorStep Declare="true" Use="false" />
+                        <ErrorPOU Declare="true" Use="false" />
+                        <CurrentStep Declare="true" Use="false" />
+                        <Tip Declare="true" Use="false" />
+                        <TipMode Declare="true" Use="false" />
+                        <MaxFlags Declare="true" Use="false" />
+                        <SFCErrorAnalyzation Declare="true" Use="false" />
+                        <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      </Flags>
+                    </SFCSettings>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>7aa3b159-2192-4930-a6a2-2e0cb0ba4e4b</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="POU_RC_sfc" pouType="program">
                 <interface>
                   <localVars>
                     <variable name="byRC_Offset">
@@ -6595,27 +6976,812 @@ config_outgroups();
                     </variable>
                   </localVars>
                 </interface>
-                <body>
-                  <ST>
-                    <xhtml xmlns="http://www.w3.org/1999/xhtml">GVL_RC.byRC_RotReq := TO_SINT(-byRC_Rotation + byRC_Offset);
+                <actions>
+                  <action name="ACT_RC_st">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">GVL_RC.byRC_RotReq := TO_SINT(-byRC_Rotation + byRC_Offset);
 GVL_RC.byRC_SpdReq := TO_SINT(-byRC_Speed + byRC_Offset);</xhtml>
-                  </ST>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>1ceb8a9f-1c31-4082-b441-0304bf3c0dd2</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                </actions>
+                <body>
+                  <SFC>
+                    <step localId="0" initialStep="true" name="START">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">START</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="1">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>GVL.INIT_COMPLETE and GVL.MODE_RC </expression>
+                    </inVariable>
+                    <transition localId="2">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="1" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">GVL.INIT_COMPLETE and GVL.MODE_RC </attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="3" name="Remote_Control">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="2" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Remote_Control</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="5">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" />
+                      </connectionPointIn>
+                      <action localId="4" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_RC_st" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_RC_st</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="6">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>not GVL.MODE_RC</expression>
+                    </inVariable>
+                    <transition localId="7">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="6" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">not GVL.MODE_RC</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <jumpStep localId="8" targetName="START">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="7" />
+                      </connectionPointIn>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">START</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </jumpStep>
+                  </SFC>
                 </body>
                 <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                    <SFCSettings>
+                      <LibTitle>IecSfc</LibTitle>
+                      <LibCompany>System</LibCompany>
+                      <LibVersion>3.4.2.0</LibVersion>
+                      <LibNamespace>IecSfc</LibNamespace>
+                      <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                      <UseDefaults>false</UseDefaults>
+                      <Flags>
+                        <EnableLimit Declare="true" Use="false" />
+                        <Init Declare="true" Use="false" />
+                        <Reset Declare="true" Use="false" />
+                        <QuitError Declare="true" Use="false" />
+                        <Pause Declare="true" Use="false" />
+                        <Error Declare="true" Use="false" />
+                        <Trans Declare="true" Use="false" />
+                        <ErrorStep Declare="true" Use="false" />
+                        <ErrorPOU Declare="true" Use="false" />
+                        <CurrentStep Declare="true" Use="false" />
+                        <Tip Declare="true" Use="false" />
+                        <TipMode Declare="true" Use="false" />
+                        <MaxFlags Declare="true" Use="false" />
+                        <SFCErrorAnalyzation Declare="true" Use="false" />
+                        <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      </Flags>
+                    </SFCSettings>
+                  </data>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                    <ObjectId>b3d80b05-913c-4059-b0d0-4ce2b8303ec9</ObjectId>
+                    <ObjectId>d8c5a0d3-0ec8-4fa0-abe9-fa06fef05483</ObjectId>
                   </data>
                 </addData>
               </pou>
             </data>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-              <pou name="POU_MAIN" pouType="program">
+              <pou name="POU_PW_Seq_sfc" pouType="program">
+                <interface>
+                  <localVars>
+                    <variable name="TON_0">
+                      <type>
+                        <derived name="TON" />
+                      </type>
+                    </variable>
+                    <variable name="SupplySwitch_0">
+                      <type>
+                        <derived name="ifmIocommon.SupplySwitch" />
+                      </type>
+                    </variable>
+                    <variable name="blPWoff_Delay_Set">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="blIFM_PW_ON">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">POWER ON FLAG</xhtml>
+                      </documentation>
+                    </variable>
+                    <variable name="blIFM_PW_Off">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="byTimerCnt_1s">
+                      <type>
+                        <USINT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="byPWstate">
+                      <type>
+                        <USINT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                </interface>
+                <actions>
+                  <action name="ACT_PW_On_st">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">IF IN0300.VAR_OUT.xValueDigital THEN
+	//SOFT ShutDown 	
+	byPWstate := 1;
+ELSIF GVL.blPW_PDU_BCU_READY THEN//PDU READY : CAN2 Mesage Check
+	byPWstate := 2;
+ELSIF GVL.blPW_MD1_ON AND GVL.blPW_MD1_ON AND GVL.blPW_EHPS_ON THEN//PDU Main power : CAN2 Mesage Check
+	byPWstate := 3;
+ELSIF GVL.blPW_DCDC1_ON AND GVL.blPW_DCDC2_ON THEN//PDU LV power : CAN2 Mesage Check
+	byPWstate := 4;
+ELSIF GVL.blPW_TMS01_ON AND GVL.blPW_TMS02_ON AND GVL.blPW_TMS03_ON AND GVL.blPW_TMS04_ON AND GVL.blPW_TMS05_ON THEN//TMS 1~5 power : CAN2A Mesage Check	
+	byPWstate := 5;
+
+	
+END_IF;
+
+CASE byPWstate OF
+  0 :
+  	//Ready
+  1 :
+    //SOFT ShutDown Set
+	OUT0102.VAR_IN.uiValue := 1;
+  2 :
+  	//CAN_BCU_Relay4_cmd := 1;	//Negative Pole Connection
+	//Delay xx ms
+	//CAN_BCU_Relay2_cmd := 1;	//Main Precharging Connection
+	//Delay xx ms
+	//CAN_BCU_Relay1_cmd := 1;	//Main Connection
+	//Delay xx ms
+	//CAN_BCU_Relay2_cmd := 0;	//Main Precharging NC
+	//CAN_BCU_Relay3_cmd := 1;	//Main Connection
+  3 : 
+  	//CAN_BCU_Relay5_cmd := 1;	//LDC Connection
+  4 : 
+	//CAN_BCU_Relay7_cmd := 1;	//TMS Precharging Connection	
+	//Delay xx ms
+	//CAN_BCU_Relay6_cmd := 1;	//TMS Connection
+	//Delay xx ms
+	//CAN_BCU_Relay7_cmd := 0;	//TMS Precharging NC	
+
+ELSE
+  	blIFM_PW_ON := 1;
+END_CASE;
+</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>cbd4e2f0-c031-4e90-a789-a5c9b702b4bb</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_PW_Off_st">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">IF blPWoff_Delay_Set THEN
+	IF (GVL.blPW_MD1_START=0) AND (GVL.blPW_MD2_START=0) AND (GVL.blPW_EHPS_START=0)  THEN
+		//IN0106,IN0107,IN0108 Check
+		byPWstate := 4;
+	
+	END_IF
+	
+	CASE byPWstate OF
+	  5 : 
+		//MD1,2 OFF
+		//Motor PWM Stop(Speed 0 Check)
+		//Brake On (Motor Lock)
+		//Motor Driver1,2 Key On Reset
+		//EHPS OFF
+		//AIR Cooler HPU off
+		//Heater HPU off
+		//E-motor HPU Pump Off
+	  4 : 
+		//TMS Device Cooling Unit 1~5 OFF CMD CAN2A Send  
+		//Delay xx ms
+		//CAN_BCU_Relay6_cmd := 0;	//TMS Connection
+		byPWstate := 3;
+	  3 : 
+		//CAN_BCU_Relay5_cmd := 0;	//LDC Connection
+		byPWstate := 2;
+	  2 :
+		//CAN_BCU_Relay3_cmd := 0;	//Main Connection
+		//Delay xx ms
+		//CAN_BCU_Relay1_cmd := 0;	//Main Connection
+		//Delay xx ms
+		//CAN_BCU_Relay2_cmd := 0;	//Main Precharging Connection
+		//Delay xx ms
+		//CAN_BCU_Relay4_cmd := 0;	//Negative Pole Connection
+		byPWstate := 1;
+	  1 :
+		//SOFT ShutDown Set
+		OUT0102.VAR_IN.uiValue := 0;
+		 
+	ELSE
+			blIFM_PW_Off := TRUE;
+	END_CASE;
+END_IF
+</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>fac0383b-76dd-41de-992d-fcadab6c82ea</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_PW_Latch_fbd">
+                    <body>
+                      <FBD>
+                        <vendorElement localId="10000000000">
+                          <position x="0" y="0" />
+                          <alternativeText>
+                            <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
+                          </alternativeText>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
+                              <fbdattributes xmlns="">
+                                <attribute name="BoxInputFlagsSupported" value="true" />
+                              </fbdattributes>
+                            </data>
+                          </addData>
+                        </vendorElement>
+                        <inVariable localId="10000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>IN0800.VAR_OUT.xValueDigital=FALSE</expression>
+                        </inVariable>
+                        <inVariable localId="10000000002">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>T#10s</expression>
+                        </inVariable>
+                        <block localId="10000000003" typeName="TON" instanceName="TON_0">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="IN">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000001" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="PT">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000002" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="Q">
+                              <connectionPointOut />
+                            </variable>
+                            <variable formalParameter="ET">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">functionblock</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="">BOOL TIME</InputParamTypes>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL TIME</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <outVariable localId="10000000004">
+                          <position x="0" y="0" />
+                          <connectionPointIn>
+                            <connection refLocalId="10000000003" formalParameter="Q" />
+                          </connectionPointIn>
+                          <expression>blPWoff_Delay_Set</expression>
+                        </outVariable>
+                        <inVariable localId="20000000000" negated="true">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>blIFM_PW_Off</expression>
+                        </inVariable>
+                        <block localId="20000000001" typeName="ifmIocommon.SupplySwitch" instanceName="SupplySwitch_0">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="xValue">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000000" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="xError">
+                              <connectionPointOut />
+                            </variable>
+                            <variable formalParameter="eDiagInfo">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="xPrepared">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">functionblock</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="">BOOL</InputParamTypes>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL ifmTypes.DIAG_INFO BOOL</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                      </FBD>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>6ac87672-1598-4904-91c4-5cd9f833889c</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_PW_Mon_st">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">byTimerCnt_1s := byTimerCnt_1s + 1;
+
+IF (byTimerCnt_1s &gt;= 100) THEN			//Monitoring Update Period : 1Sec
+//Power Monitoring Value Update
+	GVL.blPW_Key := IN0800.VAR_OUT.xValueDigital; 	//IN0800 Power On SW (Key)
+	GVL.blPW_MC1 := IN0300.VAR_OUT.xValueDigital;	//IN0300 MC #01 VCU Power Line On
+	GVL.blPW_MC2 := IN0301.VAR_OUT.xValueDigital;	//IN0301 MC #02 HPU Pump On
+	GVL.blPW_MC3 := IN0400.VAR_OUT.xValueDigital;	//IN0400 MC #03 HPU Air Cooler On
+	GVL.blPW_MC4 := IN0401.VAR_OUT.xValueDigital;	//IN0401 MC #04 HPU Heater On
+	byTimerCnt_1s := 0;
+	//GVL_PC.blPW_LVCG_ON := ;	//LV Charger CAN2 Recieve Flag
+	//GVL_PC.blPW_LVBAT_ON := ;	//LV Battery CAN2 Recieve Flag
+END_IF</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>d9171b04-0bd5-4a40-8320-8b18969055be</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                </actions>
+                <body>
+                  <SFC>
+                    <step localId="0" initialStep="true" name="START">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">START</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="1">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>GVL.INIT_COMPLETE</expression>
+                    </inVariable>
+                    <transition localId="2">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="1" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">GVL.INIT_COMPLETE</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="3" name="POWER_Monitor">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="2" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">POWER_Monitor</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="5">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" />
+                      </connectionPointIn>
+                      <action localId="4" qualifier="S" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_PW_Mon_st" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_PW_Mon_st</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">S</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="6">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>TRUE</expression>
+                    </inVariable>
+                    <transition localId="7">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="6" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">TRUE</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="8" name="POWER_ON_Check">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="7" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">POWER_ON_Check</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="10">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="8" />
+                      </connectionPointIn>
+                      <action localId="9" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_PW_On_st" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_PW_On_st</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="11">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>blIFM_PW_ON</expression>
+                    </inVariable>
+                    <transition localId="12">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="8" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="11" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">blIFM_PW_ON</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="13" name="POWER_OFF_Check">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="12" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">POWER_OFF_Check</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="16">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="13" />
+                      </connectionPointIn>
+                      <action localId="14" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_PW_Latch_fbd" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_PW_Latch_fbd</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                      <action localId="15" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_PW_Off_st" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_PW_Off_st</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="17">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>blIFM_PW_Off</expression>
+                    </inVariable>
+                    <transition localId="18">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="13" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="17" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">blIFM_PW_Off</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <jumpStep localId="19" targetName="START">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="18" />
+                      </connectionPointIn>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">START</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </jumpStep>
+                  </SFC>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                    <SFCSettings>
+                      <LibTitle>IecSfc</LibTitle>
+                      <LibCompany>System</LibCompany>
+                      <LibVersion>3.4.2.0</LibVersion>
+                      <LibNamespace>IecSfc</LibNamespace>
+                      <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                      <UseDefaults>false</UseDefaults>
+                      <Flags>
+                        <EnableLimit Declare="true" Use="false" />
+                        <Init Declare="true" Use="false" />
+                        <Reset Declare="true" Use="false" />
+                        <QuitError Declare="true" Use="false" />
+                        <Pause Declare="true" Use="false" />
+                        <Error Declare="true" Use="false" />
+                        <Trans Declare="true" Use="false" />
+                        <ErrorStep Declare="true" Use="false" />
+                        <ErrorPOU Declare="true" Use="false" />
+                        <CurrentStep Declare="true" Use="false" />
+                        <Tip Declare="true" Use="false" />
+                        <TipMode Declare="true" Use="false" />
+                        <MaxFlags Declare="true" Use="false" />
+                        <SFCErrorAnalyzation Declare="true" Use="false" />
+                        <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      </Flags>
+                    </SFCSettings>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>54dc6693-0859-411d-a017-262d2e3b517f</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="POU_Main_sfc" pouType="program">
                 <interface>
                   <localVars>
                     <variable name="CAN_Enable_0">
                       <type>
                         <derived name="ifmRCAN.CAN_Enable" />
                       </type>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">RCAN Init</xhtml>
+                      </documentation>
                     </variable>
                     <variable name="CAN_Enable_1">
                       <type>
@@ -6632,18 +7798,21 @@ GVL_RC.byRC_SpdReq := TO_SINT(-byRC_Speed + byRC_Offset);</xhtml>
                         <derived name="ifmRCAN.CAN_Status" />
                       </type>
                     </variable>
-                    <variable name="INIT_FLAG">
+                    <variable name="POWER_ON_CMD">
                       <type>
                         <BOOL />
                       </type>
                       <initialValue>
-                        <simpleValue value="0" />
+                        <simpleValue value="1" />
                       </initialValue>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">OP-Mode Parameter</xhtml>
+                      </documentation>
                     </variable>
                   </localVars>
                 </interface>
                 <actions>
-                  <action name="INIT_RCAN">
+                  <action name="ACT_Init_rcan_fbd">
                     <body>
                       <FBD>
                         <vendorElement localId="10000000000">
@@ -6955,323 +8124,236 @@ GVL_RC.byRC_SpdReq := TO_SINT(-byRC_Speed + byRC_Offset);</xhtml>
                       </data>
                     </addData>
                   </action>
-                  <action name="INIT_IO">
+                  <action name="ACT_Update_Io_st">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">IOWrapper.READ_INPUTS(); 	//Call IOWrapper Main Program and Read Data from Inputs   
+IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outputs 
+</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>d96c0f71-6c9c-4b15-b487-3840cbad0f69</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_Init_entry_st">
                     <body>
                       <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">	CR721S_Config(); 			//IO Configuration
-
-	</xhtml>
+	//ACT_Init_rcan_fbd();
+	GVL.INIT_COMPLETE := 1;</xhtml>
                       </ST>
                     </body>
                     <addData>
                       <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                        <ObjectId>ed770a2e-d163-4661-9994-dbbd2507d0af</ObjectId>
+                        <ObjectId>278d9492-e2ae-4210-9fc6-404c2e3a855d</ObjectId>
                       </data>
                     </addData>
                   </action>
                 </actions>
                 <body>
-                  <ST>
-                    <xhtml xmlns="http://www.w3.org/1999/xhtml">IF NOT INIT_FLAG THEN
-	INIT_IO();
-	//INIT_RCAN();	
-
-	INIT_FLAG := 1;
-
-END_IF
-
-IOWrapper.READ_INPUTS(); 	//Call IOWrapper Main Program and Read Data from Inputs   
-IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outputs 
-</xhtml>
-                  </ST>
+                  <SFC>
+                    <step localId="0" initialStep="true" name="START">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">START</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="1">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>TRUE</expression>
+                    </inVariable>
+                    <transition localId="2">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="1" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">TRUE</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="3" name="Init">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="2" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                            <attribute guid="a6b08bd8-b696-47e3-9cbf-7408b61c9ff8">ACT_Init_entry_st</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="4">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>TRUE</expression>
+                    </inVariable>
+                    <transition localId="5">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="4" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">TRUE</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="6" name="Update_Io">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="5" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Update_Io</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="8">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="6" />
+                      </connectionPointIn>
+                      <action localId="7" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_Update_Io_st" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_Update_Io_st</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="9">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>FALSE</expression>
+                    </inVariable>
+                    <transition localId="10">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="6" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="9" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">FALSE</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <jumpStep localId="11" targetName="START">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="10" />
+                      </connectionPointIn>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">START</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </jumpStep>
+                  </SFC>
                 </body>
                 <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                    <ObjectId>ac333122-df71-45c6-a31a-40590ca53959</ObjectId>
+                  <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                    <SFCSettings>
+                      <LibTitle>IecSfc</LibTitle>
+                      <LibCompany>System</LibCompany>
+                      <LibVersion>3.4.2.0</LibVersion>
+                      <LibNamespace>IecSfc</LibNamespace>
+                      <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                      <UseDefaults>false</UseDefaults>
+                      <Flags>
+                        <EnableLimit Declare="true" Use="false" />
+                        <Init Declare="true" Use="false" />
+                        <Reset Declare="true" Use="false" />
+                        <QuitError Declare="true" Use="false" />
+                        <Pause Declare="true" Use="false" />
+                        <Error Declare="true" Use="false" />
+                        <Trans Declare="true" Use="false" />
+                        <ErrorStep Declare="true" Use="false" />
+                        <ErrorPOU Declare="true" Use="false" />
+                        <CurrentStep Declare="true" Use="false" />
+                        <Tip Declare="true" Use="false" />
+                        <TipMode Declare="true" Use="false" />
+                        <MaxFlags Declare="true" Use="false" />
+                        <SFCErrorAnalyzation Declare="true" Use="false" />
+                        <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      </Flags>
+                    </SFCSettings>
                   </data>
-                </addData>
-              </pou>
-            </data>
-            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-              <pou name="POU_MD" pouType="program">
-                <interface />
-                <actions>
-                  <action name="ACT_MD_INIT">
-                    <body>
-                      <ST>
-                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
-                      </ST>
-                    </body>
-                    <addData>
-                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                        <ObjectId>889b415b-d0fb-48dd-b635-4e81a3695f80</ObjectId>
-                      </data>
-                    </addData>
-                  </action>
-                </actions>
-                <body>
-                  <ST>
-                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
-                  </ST>
-                </body>
-                <addData>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                    <ObjectId>6fe95b79-99fb-4b98-946a-688542a129e4</ObjectId>
-                  </data>
-                </addData>
-              </pou>
-            </data>
-            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-              <pou name="POU_PW_Seq" pouType="program">
-                <interface>
-                  <localVars>
-                    <variable name="TON_0">
-                      <type>
-                        <derived name="TON" />
-                      </type>
-                    </variable>
-                    <variable name="SupplySwitch_0">
-                      <type>
-                        <derived name="ifmIocommon.SupplySwitch" />
-                      </type>
-                    </variable>
-                    <variable name="blPWoff_Delay_Set">
-                      <type>
-                        <BOOL />
-                      </type>
-                      <initialValue>
-                        <simpleValue value="0" />
-                      </initialValue>
-                    </variable>
-                    <variable name="blIFM_PW_Off">
-                      <type>
-                        <BOOL />
-                      </type>
-                      <initialValue>
-                        <simpleValue value="0" />
-                      </initialValue>
-                    </variable>
-                    <variable name="byTimerCnt_1s">
-                      <type>
-                        <USINT />
-                      </type>
-                      <initialValue>
-                        <simpleValue value="0" />
-                      </initialValue>
-                    </variable>
-                  </localVars>
-                </interface>
-                <actions>
-                  <action name="ACT_PW_On">
-                    <body>
-                      <ST>
-                        <xhtml xmlns="http://www.w3.org/1999/xhtml">IF (IN0300.VAR_OUT.xValueDigital AND OUT0102.VAR_OUT.xOutState = FALSE) THEN
-	//SOFT ShutDown 	
-	OUT0102.VAR_IN.uiValue := 1;
-	//EHPS Power ON Test
-	OUT0106.VAR_IN.uiValue := 1;
-	OUT0107.VAR_IN.uiValue := 1;
-	OUT0108.VAR_IN.uiValue := 1;
-	//Motor Drive Power ON Test
-	OUT0103.VAR_IN.uiValue := 1;
-	OUT0104.VAR_IN.uiValue := 1;
-	//lgt Test Code 
-	OUT0103.VAR_IN.uiValue := 1;
-	OUT0103.VAR_IN.uiValue := 1;
-	OUT0103.VAR_IN.uiValue := 1;
-	OUT0103.VAR_IN.uiValue := 1;
-	OUT0103.VAR_IN.uiValue := 1;
-END_IF</xhtml>
-                      </ST>
-                    </body>
-                    <addData>
-                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                        <ObjectId>cbd4e2f0-c031-4e90-a789-a5c9b702b4bb</ObjectId>
-                      </data>
-                    </addData>
-                  </action>
-                  <action name="ACT_PW_Off">
-                    <body>
-                      <ST>
-                        <xhtml xmlns="http://www.w3.org/1999/xhtml">ACT_PW_Latch();	// Power Off Delay 10s
-
-IF blPWoff_Delay_Set THEN
-	//Motor Drive Power ON Test
-	OUT0103.VAR_IN.uiValue := 0;
-	OUT0104.VAR_IN.uiValue := 0;
-	//EHPS Power ON Test
-	OUT0106.VAR_IN.uiValue := 0;
-	OUT0107.VAR_IN.uiValue := 0;
-	OUT0108.VAR_IN.uiValue := 0;
-	//SOFT ShutDown 	
-	OUT0102.VAR_IN.uiValue := 0;
-	OUT0102.VAR_IN.uiValue := 0;
-	blIFM_PW_Off := TRUE;
-END_IF</xhtml>
-                      </ST>
-                    </body>
-                    <addData>
-                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                        <ObjectId>fac0383b-76dd-41de-992d-fcadab6c82ea</ObjectId>
-                      </data>
-                    </addData>
-                  </action>
-                  <action name="ACT_PW_Latch">
-                    <body>
-                      <FBD>
-                        <vendorElement localId="10000000000">
-                          <position x="0" y="0" />
-                          <alternativeText>
-                            <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
-                          </alternativeText>
-                          <addData>
-                            <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
-                              <fbdattributes xmlns="">
-                                <attribute name="BoxInputFlagsSupported" value="true" />
-                              </fbdattributes>
-                            </data>
-                          </addData>
-                        </vendorElement>
-                        <inVariable localId="10000000001">
-                          <position x="0" y="0" />
-                          <connectionPointOut />
-                          <expression>IN0800.VAR_OUT.xValueDigital=FALSE</expression>
-                        </inVariable>
-                        <inVariable localId="10000000002">
-                          <position x="0" y="0" />
-                          <connectionPointOut />
-                          <expression>T#10s</expression>
-                        </inVariable>
-                        <block localId="10000000003" typeName="TON" instanceName="TON_0">
-                          <position x="0" y="0" />
-                          <inputVariables>
-                            <variable formalParameter="IN">
-                              <connectionPointIn>
-                                <connection refLocalId="10000000001" />
-                              </connectionPointIn>
-                            </variable>
-                            <variable formalParameter="PT">
-                              <connectionPointIn>
-                                <connection refLocalId="10000000002" />
-                              </connectionPointIn>
-                            </variable>
-                          </inputVariables>
-                          <inOutVariables />
-                          <outputVariables>
-                            <variable formalParameter="Q">
-                              <connectionPointOut />
-                            </variable>
-                            <variable formalParameter="ET">
-                              <connectionPointOut>
-                                <expression />
-                              </connectionPointOut>
-                            </variable>
-                          </outputVariables>
-                          <addData>
-                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
-                              <CallType xmlns="">functionblock</CallType>
-                            </data>
-                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
-                              <InputParamTypes xmlns="">BOOL TIME</InputParamTypes>
-                            </data>
-                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
-                              <OutputParamTypes xmlns="">BOOL TIME</OutputParamTypes>
-                            </data>
-                          </addData>
-                        </block>
-                        <outVariable localId="10000000004">
-                          <position x="0" y="0" />
-                          <connectionPointIn>
-                            <connection refLocalId="10000000003" formalParameter="Q" />
-                          </connectionPointIn>
-                          <expression>blPWoff_Delay_Set</expression>
-                        </outVariable>
-                        <inVariable localId="20000000000" negated="true">
-                          <position x="0" y="0" />
-                          <connectionPointOut />
-                          <expression>blIFM_PW_Off</expression>
-                        </inVariable>
-                        <block localId="20000000001" typeName="ifmIocommon.SupplySwitch" instanceName="SupplySwitch_0">
-                          <position x="0" y="0" />
-                          <inputVariables>
-                            <variable formalParameter="xValue">
-                              <connectionPointIn>
-                                <connection refLocalId="20000000000" />
-                              </connectionPointIn>
-                            </variable>
-                          </inputVariables>
-                          <inOutVariables />
-                          <outputVariables>
-                            <variable formalParameter="xError">
-                              <connectionPointOut />
-                            </variable>
-                            <variable formalParameter="eDiagInfo">
-                              <connectionPointOut>
-                                <expression />
-                              </connectionPointOut>
-                            </variable>
-                            <variable formalParameter="xPrepared">
-                              <connectionPointOut>
-                                <expression />
-                              </connectionPointOut>
-                            </variable>
-                          </outputVariables>
-                          <addData>
-                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
-                              <CallType xmlns="">functionblock</CallType>
-                            </data>
-                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
-                              <InputParamTypes xmlns="">BOOL</InputParamTypes>
-                            </data>
-                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
-                              <OutputParamTypes xmlns="">BOOL ifmTypes.DIAG_INFO BOOL</OutputParamTypes>
-                            </data>
-                          </addData>
-                        </block>
-                      </FBD>
-                    </body>
-                    <addData>
-                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                        <ObjectId>6ac87672-1598-4904-91c4-5cd9f833889c</ObjectId>
-                      </data>
-                    </addData>
-                  </action>
-                  <action name="ACT_PW_Mon">
-                    <body>
-                      <ST>
-                        <xhtml xmlns="http://www.w3.org/1999/xhtml">	//Power Monitoring Value Update
-	GVL_PW.blPW_Key := IN0800.VAR_OUT.xValueDigital; 	//IN0800 Power On SW (Key)
-	GVL_PW.blPW_MC1 := IN0300.VAR_OUT.xValueDigital;	//IN0300 MC #01 VCU Power Line On
-	GVL_PW.blPW_MC2 := IN0301.VAR_OUT.xValueDigital;	//IN0301 MC #02 HPU Pump On
-	GVL_PW.blPW_MC3 := IN0400.VAR_OUT.xValueDigital;	//IN0400 MC #03 HPU Air Cooler On
-	GVL_PW.blPW_MC4 := IN0401.VAR_OUT.xValueDigital;	//IN0401 MC #04 HPU Heater On</xhtml>
-                      </ST>
-                    </body>
-                    <addData>
-                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                        <ObjectId>d9171b04-0bd5-4a40-8320-8b18969055be</ObjectId>
-                      </data>
-                    </addData>
-                  </action>
-                </actions>
-                <body>
-                  <ST>
-                    <xhtml xmlns="http://www.w3.org/1999/xhtml">byTimerCnt_1s := byTimerCnt_1s + 1;
-
-ACT_PW_On();
-
-IF (byTimerCnt_1s &gt;= 100) THEN			//Monitoring Update Period : 1Sec
-	ACT_PW_Mon();						//Value Update 
-	byTimerCnt_1s := 0;
-END_IF
-
-ACT_PW_Off();
-																									</xhtml>
-                  </ST>
-                </body>
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
-                    <ObjectId>e531ac4a-0725-417d-b4be-22882c126030</ObjectId>
+                    <ObjectId>eaa6dde0-7e53-4a51-9413-ad3211b3b60f</ObjectId>
                   </data>
                 </addData>
               </pou>
@@ -18266,9 +19348,10 @@ ACT_PW_Off();
           </Object>
           <Object Name="Application" ObjectId="f9c00bdb-2f18-4e80-863e-6da977e8f304">
             <Object Name="Library Manager" ObjectId="296cb935-5a07-43ab-9548-d218e0f9b37a" />
-            <Object Name="POU_MAIN" ObjectId="ac333122-df71-45c6-a31a-40590ca53959">
-              <Object Name="INIT_RCAN" ObjectId="4858fb38-6fab-40ac-b19e-820e5a9cce6f" />
-              <Object Name="INIT_IO" ObjectId="ed770a2e-d163-4661-9994-dbbd2507d0af" />
+            <Object Name="POU_Main_sfc" ObjectId="eaa6dde0-7e53-4a51-9413-ad3211b3b60f">
+              <Object Name="ACT_Init_rcan_fbd" ObjectId="4858fb38-6fab-40ac-b19e-820e5a9cce6f" />
+              <Object Name="ACT_Update_Io_st" ObjectId="d96c0f71-6c9c-4b15-b487-3840cbad0f69" />
+              <Object Name="ACT_Init_entry_st" ObjectId="278d9492-e2ae-4210-9fc6-404c2e3a855d" />
             </Object>
             <Object Name="Task_10ms" ObjectId="12674cf4-d25e-4151-96b2-08a6cc6d1e52" />
             <Object Name="CR721S_Config" ObjectId="47b983a9-d53f-49e6-bcee-eb4ac70f4850">
@@ -18279,24 +19362,24 @@ ACT_PW_Off();
             <Folder Name="DeviceDriver">
               <Folder Name="RemoteControl">
                 <Object Name="GVL_RC" ObjectId="fbd2e5b6-91da-47f4-b51f-40397e3ebcc4" />
-                <Object Name="POU_RC" ObjectId="b3d80b05-913c-4059-b0d0-4ce2b8303ec9" />
+                <Object Name="POU_RC_sfc" ObjectId="d8c5a0d3-0ec8-4fa0-abe9-fa06fef05483">
+                  <Object Name="ACT_RC_st" ObjectId="1ceb8a9f-1c31-4082-b441-0304bf3c0dd2" />
+                </Object>
               </Folder>
               <Folder Name="MotorDriver">
-                <Object Name="POU_MD" ObjectId="6fe95b79-99fb-4b98-946a-688542a129e4">
-                  <Object Name="ACT_MD_INIT" ObjectId="889b415b-d0fb-48dd-b635-4e81a3695f80" />
+                <Object Name="POU_MD_sfc" ObjectId="7aa3b159-2192-4930-a6a2-2e0cb0ba4e4b">
+                  <Object Name="ACT_MD_Init_entry_st" ObjectId="724b859e-19b5-4313-b7b5-7d76963f46f2" />
                 </Object>
                 <Object Name="GVL_MD" ObjectId="addeaeee-fa53-4b13-9a65-3466078dadac" />
               </Folder>
             </Folder>
-            <Folder Name="PowerControl">
-              <Object Name="POU_PW_Seq" ObjectId="e531ac4a-0725-417d-b4be-22882c126030">
-                <Object Name="ACT_PW_On" ObjectId="cbd4e2f0-c031-4e90-a789-a5c9b702b4bb" />
-                <Object Name="ACT_PW_Off" ObjectId="fac0383b-76dd-41de-992d-fcadab6c82ea" />
-                <Object Name="ACT_PW_Latch" ObjectId="6ac87672-1598-4904-91c4-5cd9f833889c" />
-                <Object Name="ACT_PW_Mon" ObjectId="d9171b04-0bd5-4a40-8320-8b18969055be" />
-              </Object>
-              <Object Name="GVL_PW" ObjectId="e1041269-61ce-4b21-be9f-bd4685831828" />
-            </Folder>
+            <Object Name="POU_PW_Seq_sfc" ObjectId="54dc6693-0859-411d-a017-262d2e3b517f">
+              <Object Name="ACT_PW_On_st" ObjectId="cbd4e2f0-c031-4e90-a789-a5c9b702b4bb" />
+              <Object Name="ACT_PW_Off_st" ObjectId="fac0383b-76dd-41de-992d-fcadab6c82ea" />
+              <Object Name="ACT_PW_Latch_fbd" ObjectId="6ac87672-1598-4904-91c4-5cd9f833889c" />
+              <Object Name="ACT_PW_Mon_st" ObjectId="d9171b04-0bd5-4a40-8320-8b18969055be" />
+            </Object>
+            <Object Name="GVL" ObjectId="a02039b1-b71d-4e7f-84c7-d67af8ac9bb3" />
           </Object>
         </Object>
         <Folder Name="TestNamespace">
