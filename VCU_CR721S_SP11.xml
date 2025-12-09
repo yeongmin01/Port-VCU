@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP11" creationDateTime="2025-11-12T19:57:54.8438035" />
-  <contentHeader name="ifmCR711S_TemplateProject" version="2.4.10.0" modificationDateTime="2025-11-12T19:56:23.9944925" organization="ifm electronic">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP11" creationDateTime="2025-12-09T15:04:44.9296807" />
+  <contentHeader name="ifmCR711S_TemplateProject" version="2.4.10.0" modificationDateTime="2025-12-09T09:14:46.8614764" organization="ifm electronic">
     <Comment>Project template with CR711S configured 2.25MByte Standard 2.25MByte Safety</Comment>
     <coordinateInfo>
       <fbd>
@@ -5381,6 +5381,23 @@ outputVar1 := outputVar2;
               </data>
             </addData>
           </task>
+          <task name="Task_50ms" interval="PT0.05S" priority="2">
+            <pouInstance name="POU_NCU_Comm_sfc" typeName="">
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </documentation>
+            </pouInstance>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="t#50ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+                </TaskSettings>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>ca13ee2e-f496-4bc4-8fdb-aebb8234b3da</ObjectId>
+              </data>
+            </addData>
+          </task>
           <globalVars name="GVL_RC">
             <variable name="byRC_RotReq">
               <type>
@@ -5456,6 +5473,14 @@ outputVar1 := outputVar2;
               </initialValue>
             </variable>
             <variable name="MODE_MD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="1" />
+              </initialValue>
+            </variable>
+            <variable name="MODE_ND">
               <type>
                 <BOOL />
               </type>
@@ -5712,6 +5737,22 @@ outputVar1 := outputVar2;
                 <simpleValue value="0" />
               </initialValue>
             </variable>
+            <variable name="blSS_LD1_OUT1">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
+            <variable name="blSS_LD1_IN1">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
             <variable name="wAnalogOut">
               <type>
                 <WORD />
@@ -5723,6 +5764,22 @@ outputVar1 := outputVar2;
             <variable name="wAnalogInput">
               <type>
                 <WORD />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
+            <variable name="AbsEnc_preset">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="0" />
+              </initialValue>
+            </variable>
+            <variable name="AbsEnc_ShiftPositive">
+              <type>
+                <BOOL />
               </type>
               <initialValue>
                 <simpleValue value="0" />
@@ -6428,7 +6485,227 @@ outputVar1 := outputVar2;
               </data>
             </addData>
           </globalVars>
+          <globalVars name="GVL_NCU">
+            <variable name="arr_NCUtoVCU0_data">
+              <type>
+                <array>
+                  <dimension lower="0" upper="7" />
+                  <baseType>
+                    <USINT />
+                  </baseType>
+                </array>
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">RECIEVE_DATA_ARRAY	</xhtml>
+              </documentation>
+            </variable>
+            <variable name="arr_NCUtoVCU1_data">
+              <type>
+                <array>
+                  <dimension lower="0" upper="7" />
+                  <baseType>
+                    <USINT />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+            <variable name="arr_NCUtoVCU2_data">
+              <type>
+                <array>
+                  <dimension lower="0" upper="7" />
+                  <baseType>
+                    <USINT />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+            <variable name="u1_STOP_REQUEST">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">NCUtoVCU0_Data</xhtml>
+              </documentation>
+            </variable>
+            <variable name="u8_STOP_TYPE">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_STOP_DECEL_RATE">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="s16_WHEEL_SPEED_CMD_AXIS2">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="s16_WHEEL_SPEED_CMD_AXIS3">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="s16_STEER_ANGLE_CMD_AXIS1">
+              <type>
+                <INT />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">NCUtoVCU1_Data</xhtml>
+              </documentation>
+            </variable>
+            <variable name="s16_STEER_ANGLE_CMD_AXIS2">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="s16_STEER_ANGLE_CMD_AXIS3">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="s16_STEER_ANGLE_CMD_AXIS4">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="u1_STEER_ALIGN_CMD">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">NCUtoVCU2_Data</xhtml>
+              </documentation>
+            </variable>
+            <variable name="u8_NCU_STATUS">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_NCU_ALIVE">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_VCU_STATUS">
+              <type>
+                <BYTE />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">VCUtoNCU4_Data</xhtml>
+              </documentation>
+            </variable>
+            <variable name="u8_VCU_ERROR_CODE">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_VCU_WARNING_CODE">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_MOTOR_DRIVER1_STATUS">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_MOTOR_DRIVER2_STATUS">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_EHPS_STATUS">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u8_PDU_STATUS">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <variable name="u1_SERVICE_BRAKE_STATUS_F">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_SERVICE_BRAKE_STATUS_R">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_PARKING_BRAKE_STATUS_F">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_PARKING_BRAKE_STATUS_R">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_WHEEL2_STATUS_L">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_WHEEL2_STATUS_R">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_WHEEL3_STATUS_L">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u1_WHEEL3_STATUS_R">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="u8_VCU_ALIVE">
+              <type>
+                <BYTE />
+              </type>
+            </variable>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                <Attributes>
+                  <Attribute Name="qualified_only" Value="" />
+                </Attributes>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>6e38e32e-264e-4f1b-99a1-b71d94dea74c</ObjectId>
+              </data>
+            </addData>
+          </globalVars>
           <addData>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="DUT_Column">
+                <baseType>
+                  <struct>
+                    <variable name="Left">
+                      <type>
+                        <UINT />
+                      </type>
+                    </variable>
+                    <variable name="Right">
+                      <type>
+                        <UINT />
+                      </type>
+                    </variable>
+                  </struct>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>2cc1fe80-7790-4753-9b76-01d274b87783</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
               <pou name="CR721S_Config" pouType="program">
                 <interface />
@@ -6438,8 +6715,8 @@ outputVar1 := outputVar2;
                       <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Input Mode Configuration *) // FREQ_SENSE_PERIODS.PERIODS_5, ENCODER_RESOLUTION.EVERY_EDGE
 (* Frequency Inputs *)
-IN0000.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
-IN0001.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
+IN0000.CONFIG.IN_INC_ENCODER_CSO_A		(ENCODER_RESOLUTION.FULL_PERIOD,1);
+IN0001.CONFIG.IN_INC_ENCODER_CSO_B();
 IN0002.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
 IN0003.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
 IN0500.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
@@ -6460,7 +6737,7 @@ IN0100.CONFIG.IN_CURRENT_CSI		(FILTER_INPUT.UNCHANGED);
 IN0101.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
 IN0102.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
 IN0103.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
-IN0200.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
+IN0200.CONFIG.IN_DIGITAL_CSI		(FILTER_INPUT.UNCHANGED);
 IN0201.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
 IN0202.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
 IN0203.CONFIG.MONITOR		(FILTER_INPUT.UNCHANGED);
@@ -7672,7 +7949,8 @@ END_IF
 	GVL.wAnalogOut := wAnaOut;
 
 	GVL.wAnalogInput := Fieldbus_AnaIn;
-	
+	GVL.blSS_LD1_IN1 := IN0200_I.ValueDigital;
+	OUT0101_Q.ValueDigital := GVL.blSS_LD1_OUT1;
 IF (byTimerCnt_1s &gt;= 100) THEN			//Monitoring Update Period : 1Sec
 //Power Monitoring Value Update
 	GVL.blPW_Key := IN0800.VAR_OUT.xValueDigital; 	//IN0800 Power On SW (Key)
@@ -8371,8 +8649,9 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                     <body>
                       <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">	CR721S_Config(); 			//IO Configuration
-	//ACT_Init_rcan_fbd();
-	GVL.INIT_COMPLETE := 1;</xhtml>
+	ACT_Init_rcan_fbd();
+	GVL.INIT_COMPLETE := 1;
+</xhtml>
                       </ST>
                     </body>
                     <addData>
@@ -8587,6 +8866,2126 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                 </addData>
               </pou>
             </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="POU_NCU_Comm_sfc" pouType="program">
+                <interface>
+                  <localVars constant="true">
+                    <variable name="NCUtoVCU0_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#100" />
+                      </initialValue>
+                    </variable>
+                    <variable name="NCUtoVCU1_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#101" />
+                      </initialValue>
+                    </variable>
+                    <variable name="NCUtoVCU2_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#102" />
+                      </initialValue>
+                    </variable>
+                    <variable name="VCUtoNCU0_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#200" />
+                      </initialValue>
+                    </variable>
+                    <variable name="VCUtoNCU1_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#201" />
+                      </initialValue>
+                    </variable>
+                    <variable name="VCUtoNCU2_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#202" />
+                      </initialValue>
+                    </variable>
+                    <variable name="VCUtoNCU3_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#203" />
+                      </initialValue>
+                    </variable>
+                    <variable name="VCUtoNCU4_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#204" />
+                      </initialValue>
+                    </variable>
+                    <variable name="VCUtoNCU5_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#205" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="Steer1">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="Steer2">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="Steer3">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="Steer4">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup0">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup1">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup2">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup3">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup4">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup5">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="Grup1_Sync">
+                      <type>
+                        <UINT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Grup2_Sync">
+                      <type>
+                        <UINT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="CAN_RxMask_1">
+                      <type>
+                        <derived name="ifmRCAN.CAN_RxMask" />
+                      </type>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">CAN_Rx_1: ifmRCAN.CAN_Rx;</xhtml>
+                      </documentation>
+                    </variable>
+                    <variable name="CAN_Tx_1">
+                      <type>
+                        <derived name="ifmRCAN.CAN_Tx" />
+                      </type>
+                    </variable>
+                    <variable name="aRxData">
+                      <type>
+                        <array>
+                          <dimension lower="0" upper="7" />
+                          <baseType>
+                            <USINT />
+                          </baseType>
+                        </array>
+                      </type>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">CAN_Rx_1: ifmRCAN.CAN_Rx;
+CAN_Rx_2: ifmRCAN.CAN_Rx;
+CAN_Rx_3: ifmRCAN.CAN_Rx;</xhtml>
+                      </documentation>
+                    </variable>
+                    <variable name="aTxData">
+                      <type>
+                        <array>
+                          <dimension lower="0" upper="7" />
+                          <baseType>
+                            <USINT />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="aTxID">
+                      <type>
+                        <UDINT />
+                      </type>
+                    </variable>
+                    <variable name="CAN_Status_1">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="ifmRCAN">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="CAN_Status">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="s16_SHAFT_SPEED_F">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_SHAFT_SPEED_R">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_TORQUE_REF_F">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_TORQUE_REF_R">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_INC_ENC_2L">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="s16_INC_ENC_2R">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="s16_INC_ENC_3L">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="s16_INC_ENC_3R">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="s16_BAT_VOLT">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_BAT_CUR">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_BAT_SOC">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="s16_BAT_SOH">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="u1_STOP_TYPE_H">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="u1_STOP_TYPE_L">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="u8_Count10ms">
+                      <type>
+                        <BYTE />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                </interface>
+                <actions>
+                  <action name="ACT_VCUtoNCU">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">(*
+Steer1.Left := 16#0102;
+Steer1.Right := 16#0304;
+Steer2.Left := 16#0506;
+Steer2.Right := 16#0708;
+Steer3.Left := 16#0102;
+Steer3.Right := 16#0304;
+Steer4.Left := 16#0506;
+Steer4.Right := 16#0708;
+Grup1_Sync := Grup1_Sync+1;
+Grup2_Sync := Grup2_Sync+1;
+*)
+Steer1.Left := 900;
+Steer1.Right := 450;
+Steer2.Left := 1350;
+Steer2.Right := 1800;
+Steer3.Left := 300;
+Steer3.Right := 600;
+Steer4.Left := 1200;
+Steer4.Right := 1500;
+Grup1_Sync := 20;
+Grup2_Sync := 100;
+
+s16_SHAFT_SPEED_F := -1000;
+s16_SHAFT_SPEED_R := 2000;
+s16_TORQUE_REF_F := -10000;
+s16_TORQUE_REF_R := 20000;
+
+s16_INC_ENC_2L := -3000;
+s16_INC_ENC_2R := 4000;
+s16_INC_ENC_3L := -5000;
+s16_INC_ENC_3R := 6000;
+
+GVL_NCU.u8_VCU_STATUS := 10;
+GVL_NCU.u8_VCU_ERROR_CODE := 20;
+GVL_NCU.u8_VCU_WARNING_CODE := 30;
+GVL_NCU.u8_MOTOR_DRIVER1_STATUS := 40;
+GVL_NCU.u8_MOTOR_DRIVER2_STATUS := 50;
+GVL_NCU.u8_EHPS_STATUS := 11;
+GVL_NCU.u8_PDU_STATUS := 22;
+GVL_NCU.u1_SERVICE_BRAKE_STATUS_F := 1;
+GVL_NCU.u1_SERVICE_BRAKE_STATUS_R := 0;
+GVL_NCU.u1_PARKING_BRAKE_STATUS_F := 1;
+GVL_NCU.u1_PARKING_BRAKE_STATUS_R := 0;
+GVL_NCU.u1_WHEEL2_STATUS_L := 0;
+GVL_NCU.u1_WHEEL2_STATUS_R := 0;
+GVL_NCU.u1_WHEEL3_STATUS_L := 1;
+GVL_NCU.u1_WHEEL3_STATUS_R := 1;
+GVL_NCU.u8_VCU_ALIVE := 120;
+
+s16_BAT_VOLT := 60;
+s16_BAT_CUR := 70;
+s16_BAT_SOC := 80;
+s16_BAT_SOH := 90;
+
+
+CanTx_Grup0.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup0.l64bit := Steer2.Right AND 16#3FFF;
+CanTx_Grup0.l64bit := SHL(CanTx_Grup0.l64bit,12);
+CanTx_Grup0.l64bit := CanTx_Grup0.l64bit OR (Steer2.Left AND 16#3FFF);
+CanTx_Grup0.l64bit := SHL(CanTx_Grup1.l64bit,12);
+CanTx_Grup0.l64bit := CanTx_Grup0.l64bit OR (Steer1.Right AND 16#3FFF);
+CanTx_Grup0.l64bit := SHL(CanTx_Grup1.l64bit,12);
+CanTx_Grup0.l64bit := CanTx_Grup0.l64bit OR (Steer1.Left AND 16#3FFF);
+CanTx_Grup0.l64bit := SHL(CanTx_Grup1.l64bit,16);
+CanTx_Grup0.l64bit := CanTx_Grup0.l64bit OR Grup1_Sync;
+
+CanTx_Grup1.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup1.l64bit := Steer4.Right AND 16#3FFF;
+CanTx_Grup1.l64bit := SHL(CanTx_Grup1.l64bit,12);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR (Steer4.Left AND 16#3FFF);
+CanTx_Grup1.l64bit := SHL(CanTx_Grup2.l64bit,12);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR (Steer3.Right AND 16#3FFF);
+CanTx_Grup1.l64bit := SHL(CanTx_Grup2.l64bit,12);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR (Steer3.Left AND 16#3FFF);
+CanTx_Grup1.l64bit := SHL(CanTx_Grup2.l64bit,16);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR Grup2_Sync;
+
+CanTx_Grup2.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR ANY_TO_ULINT(s16_TORQUE_REF_R);
+CanTx_Grup2.l64bit := SHL(CanTx_Grup3.l64bit,16);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR ANY_TO_ULINT(s16_TORQUE_REF_F);
+CanTx_Grup2.l64bit := SHL(CanTx_Grup3.l64bit,16);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR ANY_TO_ULINT(s16_SHAFT_SPEED_R);
+CanTx_Grup2.l64bit := SHL(CanTx_Grup3.l64bit,16);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR ANY_TO_ULINT(s16_SHAFT_SPEED_F);
+
+
+CanTx_Grup3.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(s16_INC_ENC_3R);
+CanTx_Grup3.l64bit := SHL(CanTx_Grup4.l64bit,16);
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(s16_INC_ENC_3L);
+CanTx_Grup3.l64bit := SHL(CanTx_Grup4.l64bit,16);
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(s16_INC_ENC_2R);
+CanTx_Grup3.l64bit := SHL(CanTx_Grup4.l64bit,16);
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(s16_INC_ENC_2L);
+
+CanTx_Grup4.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup4.l64bit := ANY_TO_ULINT(GVL_NCU.u8_VCU_ALIVE);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL3_STATUS_R);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL3_STATUS_L);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL2_STATUS_R);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL2_STATUS_L);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_PARKING_BRAKE_STATUS_R);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_PARKING_BRAKE_STATUS_F);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_SERVICE_BRAKE_STATUS_R);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,1);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_SERVICE_BRAKE_STATUS_F);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,8);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_EHPS_STATUS AND 16#F);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,4);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_PDU_STATUS AND 16#F);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,4);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_MOTOR_DRIVER2_STATUS);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,8);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_MOTOR_DRIVER1_STATUS);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,8);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_VCU_WARNING_CODE);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,8);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_VCU_ERROR_CODE);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,8);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_VCU_STATUS);
+
+CanTx_Grup5.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(s16_BAT_VOLT);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,16);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(s16_BAT_CUR);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,16);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(s16_BAT_SOC);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,16);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(s16_BAT_SOH);
+
+
+	aTxID := VCUtoNCU0_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup0.bArr;
+	ACT_CAN_Tx();
+	
+	aTxID := VCUtoNCU1_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup1.bArr;
+	ACT_CAN_Tx();
+	
+	aTxID := VCUtoNCU2_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup2.bArr;
+	ACT_CAN_Tx();
+	
+	aTxID := VCUtoNCU3_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup3.bArr;
+	ACT_CAN_Tx();
+
+	aTxID := VCUtoNCU4_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup4.bArr;
+	ACT_CAN_Tx();
+	
+
+
+
+u8_Count10ms := u8_Count10ms + 1;
+
+//Tx Cycle 1000ms  
+IF (u8_Count10ms MOD 20) = 0 THEN
+	aTxID := VCUtoNCU5_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup5.bArr;
+	ACT_CAN_Tx();
+	u8_Count10ms := 0;
+END_IF
+
+</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>14ded107-761f-4a8d-bcd7-ce0cfa522c71</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_CAN_Rx">
+                    <body>
+                      <FBD>
+                        <vendorElement localId="10000000000">
+                          <position x="0" y="0" />
+                          <alternativeText>
+                            <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
+                          </alternativeText>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
+                              <fbdattributes xmlns="">
+                                <attribute name="BoxInputFlagsSupported" value="true" />
+                              </fbdattributes>
+                            </data>
+                          </addData>
+                        </vendorElement>
+                        <inVariable localId="20000000000">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>TRUE</expression>
+                        </inVariable>
+                        <inVariable localId="20000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>ifmDevice.CAN_CHANNEL.CHAN_1</expression>
+                        </inVariable>
+                        <inVariable localId="20000000002">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>FALSE</expression>
+                        </inVariable>
+                        <inVariable localId="20000000003">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>16#102</expression>
+                        </inVariable>
+                        <inVariable localId="20000000004">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>16#1F0</expression>
+                        </inVariable>
+                        <block localId="20000000005" typeName="ifmRCAN.CAN_RxMask" instanceName="CAN_RxMask_1">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="xEnable">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000000" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="eChannel">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000001" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="xExtended">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000002" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="udiIDset">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000003" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="udiIDmask">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000004" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="xError">
+                              <connectionPointOut />
+                            </variable>
+                            <variable formalParameter="eDiagInfo">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="aData">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="usiDLC">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="uiAvailable">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="udiID">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">functionblock</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="">BOOL ifmDevice.CAN_CHANNEL BOOL UDINT UDINT</InputParamTypes>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL ifmTypes.DIAG_INFO ARRAY [0..7] OF USINT USINT UINT UDINT</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <inVariable localId="30000000000">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>CAN_RxMask_1.uiAvailable</expression>
+                        </inVariable>
+                        <inVariable localId="30000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>0</expression>
+                        </inVariable>
+                        <block localId="30000000002" typeName="GT">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="In1">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000000" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="In2">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000001" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="Out1">
+                              <connectionPointOut />
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">operator</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="" />
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <inVariable localId="30000000003">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>aRxData</expression>
+                        </inVariable>
+                        <inVariable localId="30000000004">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>CAN_RxMask_1.aData</expression>
+                        </inVariable>
+                        <block localId="30000000005" typeName="SEL">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="In1">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000002" formalParameter="Out1" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="In2">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000003" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="In3">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000004" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="Out1">
+                              <connectionPointOut />
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">operator</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="" />
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">INT</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <outVariable localId="30000000006">
+                          <position x="0" y="0" />
+                          <connectionPointIn>
+                            <connection refLocalId="30000000005" formalParameter="Out1" />
+                          </connectionPointIn>
+                          <expression>aRxData</expression>
+                        </outVariable>
+                      </FBD>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>3a2a8bc1-dfa0-446d-91c6-c25eddc7172b</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_CAN_Tx">
+                    <body>
+                      <FBD>
+                        <vendorElement localId="10000000000">
+                          <position x="0" y="0" />
+                          <alternativeText>
+                            <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
+                          </alternativeText>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
+                              <fbdattributes xmlns="">
+                                <attribute name="BoxInputFlagsSupported" value="true" />
+                              </fbdattributes>
+                            </data>
+                          </addData>
+                        </vendorElement>
+                        <inVariable localId="10000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>1</expression>
+                        </inVariable>
+                        <inVariable localId="10000000002">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>ifmDevice.CAN_CHANNEL.CHAN_1</expression>
+                        </inVariable>
+                        <inVariable localId="10000000003">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>aTxID</expression>
+                        </inVariable>
+                        <inVariable localId="10000000004">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>FALSE</expression>
+                        </inVariable>
+                        <inVariable localId="10000000005">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>8</expression>
+                        </inVariable>
+                        <inVariable localId="10000000006">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>aTxData</expression>
+                        </inVariable>
+                        <block localId="10000000007" typeName="ifmRCAN.CAN_Tx" instanceName="CAN_Tx_1">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="xEnable">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000001" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="eChannel">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000002" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="udiID">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000003" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="xExtended">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000004" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="usiDLC">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000005" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="aData">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000006" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="xError">
+                              <connectionPointOut />
+                            </variable>
+                            <variable formalParameter="eDiagInfo">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">functionblock</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="">BOOL ifmDevice.CAN_CHANNEL UDINT BOOL USINT ARRAY [0..7] OF USINT</InputParamTypes>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL ifmTypes.DIAG_INFO</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                      </FBD>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>e8f45ef2-411e-428a-87eb-e34e4c5954d0</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_NCUtoVCU">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">ACT_CAN_Rx();
+
+CASE CAN_RxMask_1.udiID OF
+	NCUtoVCU0_ID:
+		GVL_NCU.arr_NCUtoVCU0_data := aRxData;
+		//Bit 추출 
+		//xFlag := (b0 AND 16#01) &lt;&gt; 0; // b0의 bit1
+		GVL_NCU.u1_STOP_REQUEST := (GVL_NCU.arr_NCUtoVCU0_data[0] AND 16#01) &lt;&gt; 0;
+		u1_STOP_TYPE_L := (GVL_NCU.arr_NCUtoVCU0_data[0] AND 16#04) &lt;&gt; 0;
+		u1_STOP_TYPE_H := (GVL_NCU.arr_NCUtoVCU0_data[0] AND 16#08) &lt;&gt; 0;
+		GVL_NCU.u8_STOP_TYPE := 0;
+		GVL_NCU.u8_STOP_TYPE := GVL_NCU.u8_STOP_TYPE OR ANY_TO_BYTE(u1_STOP_TYPE_H);
+		GVL_NCU.u8_STOP_TYPE := SHL(GVL_NCU.u8_STOP_TYPE,1);
+		GVL_NCU.u8_STOP_TYPE := GVL_NCU.u8_STOP_TYPE OR ANY_TO_BYTE(u1_STOP_TYPE_L);
+		GVL_NCU.u8_STOP_DECEL_RATE := GVL_NCU.arr_NCUtoVCU0_data[1];
+		GVL_NCU.s16_WHEEL_SPEED_CMD_AXIS2 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[3]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[2]));
+		GVL_NCU.s16_WHEEL_SPEED_CMD_AXIS3 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[5]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[4]));
+
+	NCUtoVCU1_ID:
+		GVL_NCU.arr_NCUtoVCU1_data := aRxData;
+		
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS1 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[1]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[0]));
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS2 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[3]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[2]));
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS3 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[5]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[4]));
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS4 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[7]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[6]));
+		
+	NCUtoVCU2_ID:
+		GVL_NCU.arr_NCUtoVCU2_data := aRxData;
+
+		GVL_NCU.u1_STEER_ALIGN_CMD := (GVL_NCU.arr_NCUtoVCU2_data[0] AND 16#01) &lt;&gt; 0;
+		GVL_NCU.u8_NCU_STATUS := GVL_NCU.arr_NCUtoVCU2_data[6];
+		GVL_NCU.u8_NCU_ALIVE := GVL_NCU.arr_NCUtoVCU2_data[7];
+		
+ELSE
+	// 미정의/누락 ID 처리, 로깅 또는 무시
+END_CASE;</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>92cd2c7b-235e-430a-bc73-c105a0e5c4a7</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_Cycle">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">u8_Count10ms := u8_Count10ms+1;
+ACT_NCUtoVCU();</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>2dc89800-929d-4c49-b264-d94f8469ca6b</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                </actions>
+                <body>
+                  <SFC>
+                    <step localId="0" initialStep="true" name="Init">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="1">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>GVL.MODE_ND </expression>
+                    </inVariable>
+                    <transition localId="2">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="1" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">GVL.MODE_ND </attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="3" name="RCAN_Transmission">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="2" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">RCAN_Transmission</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="6">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" />
+                      </connectionPointIn>
+                      <action localId="4" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_NCUtoVCU" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_NCUtoVCU</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                      <action localId="5" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_VCUtoNCU" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_VCUtoNCU</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="7">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>NOT GVL.MODE_ND </expression>
+                    </inVariable>
+                    <transition localId="8">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="7" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT GVL.MODE_ND </attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <jumpStep localId="9" targetName="Init">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="8" />
+                      </connectionPointIn>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </jumpStep>
+                  </SFC>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                    <SFCSettings>
+                      <LibTitle>IecSfc</LibTitle>
+                      <LibCompany>System</LibCompany>
+                      <LibVersion>3.4.2.0</LibVersion>
+                      <LibNamespace>IecSfc</LibNamespace>
+                      <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                      <UseDefaults>false</UseDefaults>
+                      <Flags>
+                        <EnableLimit Declare="true" Use="false" />
+                        <Init Declare="true" Use="false" />
+                        <Reset Declare="true" Use="false" />
+                        <QuitError Declare="true" Use="false" />
+                        <Pause Declare="true" Use="false" />
+                        <Error Declare="true" Use="false" />
+                        <Trans Declare="true" Use="false" />
+                        <ErrorStep Declare="true" Use="false" />
+                        <ErrorPOU Declare="true" Use="false" />
+                        <CurrentStep Declare="true" Use="false" />
+                        <Tip Declare="true" Use="false" />
+                        <TipMode Declare="true" Use="false" />
+                        <MaxFlags Declare="true" Use="false" />
+                        <SFCErrorAnalyzation Declare="true" Use="false" />
+                        <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      </Flags>
+                    </SFCSettings>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>ba6649fb-8374-42a5-a4f9-2bf4b73d4512</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="POU_NCU_Comm_sfc_1" pouType="program">
+                <interface>
+                  <localVars constant="true">
+                    <variable name="NCUtoVCU0_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#100" />
+                      </initialValue>
+                    </variable>
+                    <variable name="NCUtoVCU1_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#101" />
+                      </initialValue>
+                    </variable>
+                    <variable name="NCUtoVCU2_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#102" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Steer_Grup1_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#200" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Steer_Grup2_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#201" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Steer_Grup3_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#202" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Steer_Grup4_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#203" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Steer_Grup5_ID">
+                      <type>
+                        <WORD />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16#204" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="Steer1">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="Steer2">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="Steer3">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="Steer4">
+                      <type>
+                        <derived name="DUT_Column" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup1">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup2">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup3">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup4">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="CanTx_Grup5">
+                      <type>
+                        <derived name="DUT_VCUtoNCU" />
+                      </type>
+                    </variable>
+                    <variable name="Grup1_Sync">
+                      <type>
+                        <UINT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Grup2_Sync">
+                      <type>
+                        <UINT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="CAN_RxMask_1">
+                      <type>
+                        <derived name="ifmRCAN.CAN_RxMask" />
+                      </type>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">CAN_Rx_1: ifmRCAN.CAN_Rx;</xhtml>
+                      </documentation>
+                    </variable>
+                    <variable name="CAN_Tx_1">
+                      <type>
+                        <derived name="ifmRCAN.CAN_Tx" />
+                      </type>
+                    </variable>
+                    <variable name="aRxData">
+                      <type>
+                        <array>
+                          <dimension lower="0" upper="7" />
+                          <baseType>
+                            <USINT />
+                          </baseType>
+                        </array>
+                      </type>
+                      <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">CAN_Rx_1: ifmRCAN.CAN_Rx;
+CAN_Rx_2: ifmRCAN.CAN_Rx;
+CAN_Rx_3: ifmRCAN.CAN_Rx;</xhtml>
+                      </documentation>
+                    </variable>
+                    <variable name="aTxData">
+                      <type>
+                        <array>
+                          <dimension lower="0" upper="7" />
+                          <baseType>
+                            <USINT />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="aTxID">
+                      <type>
+                        <UDINT />
+                      </type>
+                    </variable>
+                    <variable name="CAN_Status_1">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="ifmRCAN">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="CAN_Status">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="SHAFT_SPEED_F">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="SHAFT_SPEED_R">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="TORQUE_REF_F">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="TORQUE_REF_R">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="INC_ENC_2L">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="INC_ENC_2R">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="INC_ENC_3L">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="INC_ENC_3R">
+                      <type>
+                        <DINT />
+                      </type>
+                    </variable>
+                    <variable name="u1_STOP_TYPE_H">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="u1_STOP_TYPE_L">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="Count10ms">
+                      <type>
+                        <BYTE />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                </interface>
+                <actions>
+                  <action name="ACT_VCUtoNCU">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">(*
+Steer1.Left := 16#0102;
+Steer1.Right := 16#0304;
+Steer2.Left := 16#0506;
+Steer2.Right := 16#0708;
+Steer3.Left := 16#0102;
+Steer3.Right := 16#0304;
+Steer4.Left := 16#0506;
+Steer4.Right := 16#0708;
+Grup1_Sync := Grup1_Sync+1;
+Grup2_Sync := Grup2_Sync+1;
+*)
+Steer1.Left := 900;
+Steer1.Right := 450;
+Steer2.Left := 1350;
+Steer2.Right := 1800;
+Steer3.Left := 300;
+Steer3.Right := 600;
+Steer4.Left := 1200;
+Steer4.Right := 1500;
+Grup1_Sync := 20;
+Grup2_Sync := 100;
+
+SHAFT_SPEED_F := -1000;
+SHAFT_SPEED_R := 2000;
+TORQUE_REF_F := -10000;
+TORQUE_REF_R := 20000;
+
+INC_ENC_2L := -3000;
+INC_ENC_2R := 4000;
+INC_ENC_3L := -5000;
+INC_ENC_3R := 6000;
+
+GVL_NCU.u8_VCU_STATUS := 10;
+GVL_NCU.u8_VCU_ERROR_CODE := 20;
+GVL_NCU.u8_VCU_WARNING_CODE := 30;
+GVL_NCU.u8_MOTOR_DRIVER1_STATUS := 40;
+GVL_NCU.u8_MOTOR_DRIVER2_STATUS := 50;
+GVL_NCU.u8_EHPS_STATUS := 60;
+GVL_NCU.u1_SERVICE_BRAKE_STATUS_F := 1;
+GVL_NCU.u1_SERVICE_BRAKE_STATUS_R := 0;
+GVL_NCU.u1_PARKING_BRAKE_STATUS_F := 1;
+GVL_NCU.u1_PARKING_BRAKE_STATUS_R := 0;
+GVL_NCU.u1_WHEEL2_STATUS_L := 0;
+GVL_NCU.u1_WHEEL2_STATUS_R := 0;
+GVL_NCU.u1_WHEEL3_STATUS_L := 1;
+GVL_NCU.u1_WHEEL3_STATUS_R := 1;
+GVL_NCU.u8_VCU_ALIVE := 120;
+
+CanTx_Grup1.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup1.l64bit := Steer2.Right AND 16#3FFF;
+CanTx_Grup1.l64bit := SHL(CanTx_Grup1.l64bit,12);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR (Steer2.Left AND 16#3FFF);
+CanTx_Grup1.l64bit := SHL(CanTx_Grup1.l64bit,12);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR (Steer1.Right AND 16#3FFF);
+CanTx_Grup1.l64bit := SHL(CanTx_Grup1.l64bit,12);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR (Steer1.Left AND 16#3FFF);
+CanTx_Grup1.l64bit := SHL(CanTx_Grup1.l64bit,16);
+CanTx_Grup1.l64bit := CanTx_Grup1.l64bit OR Grup1_Sync;
+
+CanTx_Grup2.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup2.l64bit := Steer4.Right AND 16#3FFF;
+CanTx_Grup2.l64bit := SHL(CanTx_Grup2.l64bit,12);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR (Steer4.Left AND 16#3FFF);
+CanTx_Grup2.l64bit := SHL(CanTx_Grup2.l64bit,12);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR (Steer3.Right AND 16#3FFF);
+CanTx_Grup2.l64bit := SHL(CanTx_Grup2.l64bit,12);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR (Steer3.Left AND 16#3FFF);
+CanTx_Grup2.l64bit := SHL(CanTx_Grup2.l64bit,16);
+CanTx_Grup2.l64bit := CanTx_Grup2.l64bit OR Grup2_Sync;
+
+CanTx_Grup3.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(TORQUE_REF_R) AND 16#FFFF);
+CanTx_Grup3.l64bit := SHL(CanTx_Grup3.l64bit,16);
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(TORQUE_REF_F) AND 16#FFFF);
+CanTx_Grup3.l64bit := SHL(CanTx_Grup3.l64bit,16);
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(SHAFT_SPEED_R) AND 16#FFFF);
+CanTx_Grup3.l64bit := SHL(CanTx_Grup3.l64bit,16);
+CanTx_Grup3.l64bit := CanTx_Grup3.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(SHAFT_SPEED_F) AND 16#FFFF);
+
+
+CanTx_Grup4.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(INC_ENC_3R) AND 16#FFFF);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,16);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(INC_ENC_3L) AND 16#FFFF);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,16);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(INC_ENC_2R) AND 16#FFFF);
+CanTx_Grup4.l64bit := SHL(CanTx_Grup4.l64bit,16);
+CanTx_Grup4.l64bit := CanTx_Grup4.l64bit OR ANY_TO_ULINT(ANY_TO_UINT(INC_ENC_2L) AND 16#FFFF);
+
+CanTx_Grup5.l64bit := 16#0000000000000000;  // 64비트 0 초기화
+CanTx_Grup5.l64bit := ANY_TO_ULINT(GVL_NCU.u8_VCU_ALIVE);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL3_STATUS_R);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL3_STATUS_L);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL2_STATUS_R);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_WHEEL2_STATUS_L);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_PARKING_BRAKE_STATUS_R);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_PARKING_BRAKE_STATUS_F);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_SERVICE_BRAKE_STATUS_R);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,1);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u1_SERVICE_BRAKE_STATUS_F);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,8);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_EHPS_STATUS);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,8);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_MOTOR_DRIVER2_STATUS);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,8);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_MOTOR_DRIVER1_STATUS);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,8);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_VCU_WARNING_CODE);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,8);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_VCU_ERROR_CODE);
+CanTx_Grup5.l64bit := SHL(CanTx_Grup5.l64bit,8);
+CanTx_Grup5.l64bit := CanTx_Grup5.l64bit OR ANY_TO_ULINT(GVL_NCU.u8_VCU_STATUS);
+
+	aTxID := Steer_Grup1_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup1.bArr;
+	ACT_CAN_Tx();
+	
+	aTxID := Steer_Grup2_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup2.bArr;
+	ACT_CAN_Tx();
+	
+	aTxID := Steer_Grup3_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup3.bArr;
+	ACT_CAN_Tx();
+	
+	aTxID := Steer_Grup4_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup4.bArr;
+	ACT_CAN_Tx();
+
+	aTxID := Steer_Grup5_ID;
+	//aTxData[0] := Count10ms;
+	aTxData := CanTx_Grup5.bArr;
+	ACT_CAN_Tx();
+
+
+//Tx
+(*
+Count10ms := Count10ms + 1;
+
+//Tx Cycle 50ms  
+IF (Count10ms MOD 5) = 0 THEN
+	aTxID := VCUtoINV1_ID;
+	ACT_Serializer();
+	//aTxData[0] := Count10ms;
+	aTxData := GVL_NCU.VCUtoINV1_data;
+	ACT_CAN_Tx();
+END_IF
+	
+	
+IF	Count10ms &gt;= 100 THEN
+	Count10ms := 0;
+END_IF
+
+*)</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>bf398e38-91e4-4d95-b5f0-d1bd3c12e6bc</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_CAN_Rx">
+                    <body>
+                      <FBD>
+                        <vendorElement localId="10000000000">
+                          <position x="0" y="0" />
+                          <alternativeText>
+                            <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
+                          </alternativeText>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
+                              <fbdattributes xmlns="">
+                                <attribute name="BoxInputFlagsSupported" value="true" />
+                              </fbdattributes>
+                            </data>
+                          </addData>
+                        </vendorElement>
+                        <inVariable localId="20000000000">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>TRUE</expression>
+                        </inVariable>
+                        <inVariable localId="20000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>ifmDevice.CAN_CHANNEL.CHAN_1</expression>
+                        </inVariable>
+                        <inVariable localId="20000000002">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>FALSE</expression>
+                        </inVariable>
+                        <inVariable localId="20000000003">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>16#102</expression>
+                        </inVariable>
+                        <inVariable localId="20000000004">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>16#1F0</expression>
+                        </inVariable>
+                        <block localId="20000000005" typeName="ifmRCAN.CAN_RxMask" instanceName="CAN_RxMask_1">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="xEnable">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000000" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="eChannel">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000001" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="xExtended">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000002" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="udiIDset">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000003" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="udiIDmask">
+                              <connectionPointIn>
+                                <connection refLocalId="20000000004" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="xError">
+                              <connectionPointOut />
+                            </variable>
+                            <variable formalParameter="eDiagInfo">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="aData">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="usiDLC">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="uiAvailable">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                            <variable formalParameter="udiID">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">functionblock</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="">BOOL ifmDevice.CAN_CHANNEL BOOL UDINT UDINT</InputParamTypes>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL ifmTypes.DIAG_INFO ARRAY [0..7] OF USINT USINT UINT UDINT</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <inVariable localId="30000000000">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>CAN_RxMask_1.uiAvailable</expression>
+                        </inVariable>
+                        <inVariable localId="30000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>0</expression>
+                        </inVariable>
+                        <block localId="30000000002" typeName="GT">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="In1">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000000" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="In2">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000001" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="Out1">
+                              <connectionPointOut />
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">operator</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="" />
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <inVariable localId="30000000003">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>aRxData</expression>
+                        </inVariable>
+                        <inVariable localId="30000000004">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>CAN_RxMask_1.aData</expression>
+                        </inVariable>
+                        <block localId="30000000005" typeName="SEL">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="In1">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000002" formalParameter="Out1" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="In2">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000003" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="In3">
+                              <connectionPointIn>
+                                <connection refLocalId="30000000004" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="Out1">
+                              <connectionPointOut />
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">operator</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="" />
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">INT</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                        <outVariable localId="30000000006">
+                          <position x="0" y="0" />
+                          <connectionPointIn>
+                            <connection refLocalId="30000000005" formalParameter="Out1" />
+                          </connectionPointIn>
+                          <expression>aRxData</expression>
+                        </outVariable>
+                      </FBD>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>21d4f7af-e99d-4838-b9e8-e5f8c72c8452</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_CAN_Tx">
+                    <body>
+                      <FBD>
+                        <vendorElement localId="10000000000">
+                          <position x="0" y="0" />
+                          <alternativeText>
+                            <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
+                          </alternativeText>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
+                              <fbdattributes xmlns="">
+                                <attribute name="BoxInputFlagsSupported" value="true" />
+                              </fbdattributes>
+                            </data>
+                          </addData>
+                        </vendorElement>
+                        <inVariable localId="10000000001">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>1</expression>
+                        </inVariable>
+                        <inVariable localId="10000000002">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>ifmDevice.CAN_CHANNEL.CHAN_1</expression>
+                        </inVariable>
+                        <inVariable localId="10000000003">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>aTxID</expression>
+                        </inVariable>
+                        <inVariable localId="10000000004">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>FALSE</expression>
+                        </inVariable>
+                        <inVariable localId="10000000005">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>8</expression>
+                        </inVariable>
+                        <inVariable localId="10000000006">
+                          <position x="0" y="0" />
+                          <connectionPointOut />
+                          <expression>aTxData</expression>
+                        </inVariable>
+                        <block localId="10000000007" typeName="ifmRCAN.CAN_Tx" instanceName="CAN_Tx_1">
+                          <position x="0" y="0" />
+                          <inputVariables>
+                            <variable formalParameter="xEnable">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000001" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="eChannel">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000002" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="udiID">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000003" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="xExtended">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000004" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="usiDLC">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000005" />
+                              </connectionPointIn>
+                            </variable>
+                            <variable formalParameter="aData">
+                              <connectionPointIn>
+                                <connection refLocalId="10000000006" />
+                              </connectionPointIn>
+                            </variable>
+                          </inputVariables>
+                          <inOutVariables />
+                          <outputVariables>
+                            <variable formalParameter="xError">
+                              <connectionPointOut />
+                            </variable>
+                            <variable formalParameter="eDiagInfo">
+                              <connectionPointOut>
+                                <expression />
+                              </connectionPointOut>
+                            </variable>
+                          </outputVariables>
+                          <addData>
+                            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                              <CallType xmlns="">functionblock</CallType>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                              <InputParamTypes xmlns="">BOOL ifmDevice.CAN_CHANNEL UDINT BOOL USINT ARRAY [0..7] OF USINT</InputParamTypes>
+                            </data>
+                            <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                              <OutputParamTypes xmlns="">BOOL ifmTypes.DIAG_INFO</OutputParamTypes>
+                            </data>
+                          </addData>
+                        </block>
+                      </FBD>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>3fac041b-5ac3-4ade-ad79-8f030af829bf</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_NCUtoVCU">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">ACT_CAN_Rx();
+
+CASE CAN_RxMask_1.udiID OF
+	NCUtoVCU0_ID:
+		GVL_NCU.arr_NCUtoVCU0_data := aRxData;
+		//Bit 추출 
+		//xFlag := (b0 AND 16#01) &lt;&gt; 0; // b0의 bit1
+		GVL_NCU.u1_STOP_REQUEST := (GVL_NCU.arr_NCUtoVCU0_data[0] AND 16#01) &lt;&gt; 0;
+		u1_STOP_TYPE_L := (GVL_NCU.arr_NCUtoVCU0_data[0] AND 16#04) &lt;&gt; 0;
+		u1_STOP_TYPE_H := (GVL_NCU.arr_NCUtoVCU0_data[0] AND 16#08) &lt;&gt; 0;
+		GVL_NCU.u8_STOP_TYPE := 0;
+		GVL_NCU.u8_STOP_TYPE := GVL_NCU.u8_STOP_TYPE OR ANY_TO_BYTE(u1_STOP_TYPE_H);
+		GVL_NCU.u8_STOP_TYPE := SHL(GVL_NCU.u8_STOP_TYPE,1);
+		GVL_NCU.u8_STOP_TYPE := GVL_NCU.u8_STOP_TYPE OR ANY_TO_BYTE(u1_STOP_TYPE_L);
+		GVL_NCU.u8_STOP_DECEL_RATE := GVL_NCU.arr_NCUtoVCU0_data[1];
+		GVL_NCU.s16_WHEEL_SPEED_CMD_AXIS2 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[3]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[2]));
+		GVL_NCU.s16_WHEEL_SPEED_CMD_AXIS3 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[5]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU0_data[4]));
+
+	NCUtoVCU1_ID:
+		GVL_NCU.arr_NCUtoVCU1_data := aRxData;
+		
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS1 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[1]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[0]));
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS2 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[3]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[2]));
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS3 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[5]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[4]));
+		GVL_NCU.s16_STEER_ANGLE_CMD_AXIS4 := ANY_TO_INT(SHL(USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[7]),8)
+                               OR USINT_TO_UINT(GVL_NCU.arr_NCUtoVCU1_data[6]));
+		
+	NCUtoVCU2_ID:
+		GVL_NCU.arr_NCUtoVCU2_data := aRxData;
+
+		GVL_NCU.u1_STEER_ALIGN_CMD := (GVL_NCU.arr_NCUtoVCU2_data[0] AND 16#01) &lt;&gt; 0;
+		GVL_NCU.u8_NCU_STATUS := GVL_NCU.arr_NCUtoVCU2_data[6];
+		GVL_NCU.u8_NCU_ALIVE := GVL_NCU.arr_NCUtoVCU2_data[7];
+		
+ELSE
+	// 미정의/누락 ID 처리, 로깅 또는 무시
+END_CASE;</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>1c98ca53-cb76-437d-94dc-9f53f391afa4</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="ACT_Cycle">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Count10ms := Count10ms+1;
+ACT_NCUtoVCU();</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>728edf68-075e-4be6-8598-590abe068111</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                  <action name="_aRCAN_Transmission_entry">
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Count10ms := 0;
+ACT_VCUtoNCU();</xhtml>
+                      </ST>
+                    </body>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                        <ObjectId>1e46f45c-645e-4388-8d03-b17e0e57827b</ObjectId>
+                      </data>
+                    </addData>
+                  </action>
+                </actions>
+                <body>
+                  <SFC>
+                    <step localId="0" initialStep="true" name="Init">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="1">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>GVL.MODE_ND </expression>
+                    </inVariable>
+                    <transition localId="2">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="1" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">GVL.MODE_ND </attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="3" name="Cycle_Delay">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="2" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <connectionPointOutAction formalParameter="x" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Cycle_Delay</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <actionBlock localId="5">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" />
+                      </connectionPointIn>
+                      <action localId="4" qualifier="N" duration="" indicator="">
+                        <relPosition x="0" y="0" />
+                        <reference name="ACT_Cycle" />
+                        <connectionPointOut />
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                            <attributes xmlns="">
+                              <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ACT_Cycle</attribute>
+                              <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                              <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                              <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                            </attributes>
+                          </data>
+                        </addData>
+                      </action>
+                    </actionBlock>
+                    <inVariable localId="6">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>Count10ms = 5</expression>
+                    </inVariable>
+                    <transition localId="7">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="6" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Count10ms = 5</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <step localId="8" name="RCAN_Transmission">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="7" />
+                      </connectionPointIn>
+                      <connectionPointOut formalParameter="sfc" />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">RCAN_Transmission</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                            <attribute guid="a6b08bd8-b696-47e3-9cbf-7408b61c9ff8">_aRCAN_Transmission_entry</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </step>
+                    <inVariable localId="9">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>TRUE</expression>
+                    </inVariable>
+                    <transition localId="10">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="8" formalParameter="sfc" />
+                      </connectionPointIn>
+                      <condition>
+                        <connectionPointIn>
+                          <connection refLocalId="9" />
+                        </connectionPointIn>
+                      </condition>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">TRUE</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </transition>
+                    <jumpStep localId="11" targetName="Cycle_Delay">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="10" />
+                      </connectionPointIn>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Cycle_Delay</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </jumpStep>
+                  </SFC>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                    <SFCSettings>
+                      <LibTitle>IecSfc</LibTitle>
+                      <LibCompany>System</LibCompany>
+                      <LibVersion>3.4.2.0</LibVersion>
+                      <LibNamespace>IecSfc</LibNamespace>
+                      <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                      <UseDefaults>false</UseDefaults>
+                      <Flags>
+                        <EnableLimit Declare="true" Use="false" />
+                        <Init Declare="true" Use="false" />
+                        <Reset Declare="true" Use="false" />
+                        <QuitError Declare="true" Use="false" />
+                        <Pause Declare="true" Use="false" />
+                        <Error Declare="true" Use="false" />
+                        <Trans Declare="true" Use="false" />
+                        <ErrorStep Declare="true" Use="false" />
+                        <ErrorPOU Declare="true" Use="false" />
+                        <CurrentStep Declare="true" Use="false" />
+                        <Tip Declare="true" Use="false" />
+                        <TipMode Declare="true" Use="false" />
+                        <MaxFlags Declare="true" Use="false" />
+                        <SFCErrorAnalyzation Declare="true" Use="false" />
+                        <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      </Flags>
+                    </SFCSettings>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>f765198a-98fd-4561-a73a-a26d6d45da5a</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/union" handleUnknown="implementation">
+              <union name="DUT_VCUtoNCU">
+                <variable name="l64bit">
+                  <type>
+                    <ULINT />
+                  </type>
+                </variable>
+                <variable name="bArr">
+                  <type>
+                    <array>
+                      <dimension lower="0" upper="7" />
+                      <baseType>
+                        <USINT />
+                      </baseType>
+                    </array>
+                  </type>
+                </variable>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>211d435f-ed45-4061-9c66-010ea9d06b21</ObjectId>
+                  </data>
+                </addData>
+              </union>
+            </data>
             <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
               <Libraries>
                 <Library Name="ifmR360-3, 1.1.1.0 (ifm electronic)" Namespace="ifmR360_3" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" />
@@ -8614,6 +11013,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                   </Parameters>
                 </Library>
                 <Library Name="#3S CANopenStack" Namespace="_3SCOS" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3S CANopenStack, 3.5.11.0 (3S - Smart Software Solutions GmbH)" />
+                <Library Name="#NetVarUdp" Namespace="NetVarUdp" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="NetVarUdp, 3.5.11.0 (System)" />
                 <addData>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
                     <ObjectId>296cb935-5a07-43ab-9548-d218e0f9b37a</ObjectId>
@@ -9285,7 +11685,8 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                       </Value>
                                       <Name>IN0000_I</Name>
                                       <Description>FREQUENCY_B_CHANNEL_A</Description>
-                                      <Mapping>IN0000_I</Mapping>
+                                      <Mapping>
+                                        <Element name="ValueCountIncEnc">Application.POU_NCU_Comm_sfc.s16_INC_ENC_2L</Element>IN0000_I</Mapping>
                                     </Parameter>
                                     <Parameter ParameterId="2686978" type="localTypes:IN_FREQUENCY_B_CHANNEL_A_INPUT_MAPPING_TYPE" IndexInDevDesc="2">
                                       <Attributes channel="input" />
@@ -11723,7 +14124,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                   <Attributes offlineaccess="read" onlineaccess="read" />
                                                                   <Value name="_x0031_6859136" visiblename="Emergency-General Parameters" offlineaccess="read" onlineaccess="read">
                                                                     <Element name="EMCYEnable" visiblename="Emergency enabled">FALSE</Element>
-                                                                    <Element name="EMCYCOBID" visiblename="Emergency COBID">16#000000E4</Element>
+                                                                    <Element name="EMCYCOBID" visiblename="Emergency COBID">16#000000D0</Element>
                                                                   </Value>
                                                                   <Name>Emergency-General Parameters</Name>
                                                                 </Parameter>
@@ -11740,7 +14141,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                               </ParameterSection>
                                                               <Parameter ParameterId="1" type="localTypes:RangeNodeID" IndexInDevDesc="6">
                                                                 <Attributes onlineaccess="read" />
-                                                                <Value name="_x0031_" visiblename="Node-ID" onlineaccess="read">100</Value>
+                                                                <Value name="_x0031_" visiblename="Node-ID" onlineaccess="read">80</Value>
                                                                 <Name>Node-ID</Name>
                                                               </Parameter>
                                                               <Parameter ParameterId="2" type="localTypes:FLAGS_Options" IndexInDevDesc="17">
@@ -11803,7 +14204,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                     <Parameter ParameterId="20971520" type="localTypes:Struct_PDOCommunicationParameter" IndexInDevDesc="23">
                                                                       <Attributes onlineaccess="read" driverSpecific="16#00000008" />
                                                                       <Value name="_x0032_0971520" visiblename="PDO 16#1400" onlineaccess="read">
-                                                                        <Element name="COBID" visiblename="COBID">16#00000264</Element>
+                                                                        <Element name="COBID" visiblename="COBID">16#00000250</Element>
                                                                         <Element name="TransmissionType" visiblename="Transmission Type">16#FE</Element>
                                                                         <Element name="PDOParameterAvailable" visiblename="available PDO-Parameter" offlineaccess="read">
                                                                           <Element name="PDOInhibitTimeAvailable" visiblename="Inhibit Time available" offlineaccess="read">FALSE</Element>
@@ -11831,7 +14232,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                     <Parameter ParameterId="20975616" type="localTypes:Struct_PDOCommunicationParameter" IndexInDevDesc="25">
                                                                       <Attributes onlineaccess="read" driverSpecific="16#00000008" />
                                                                       <Value name="_x0032_0975616" visiblename="PDO 16#1401" onlineaccess="read">
-                                                                        <Element name="COBID" visiblename="COBID">16#00000364</Element>
+                                                                        <Element name="COBID" visiblename="COBID">16#00000350</Element>
                                                                         <Element name="TransmissionType" visiblename="Transmission Type">16#FE</Element>
                                                                         <Element name="PDOParameterAvailable" visiblename="available PDO-Parameter" offlineaccess="read">
                                                                           <Element name="PDOInhibitTimeAvailable" visiblename="Inhibit Time available" offlineaccess="read">FALSE</Element>
@@ -11859,7 +14260,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                     <Parameter ParameterId="20979712" type="localTypes:Struct_PDOCommunicationParameter" IndexInDevDesc="27">
                                                                       <Attributes onlineaccess="read" driverSpecific="16#00000008" />
                                                                       <Value name="_x0032_0979712" visiblename="PDO 16#1402" onlineaccess="read">
-                                                                        <Element name="COBID" visiblename="COBID">16#00000464</Element>
+                                                                        <Element name="COBID" visiblename="COBID">16#00000450</Element>
                                                                         <Element name="TransmissionType" visiblename="Transmission Type">16#FE</Element>
                                                                         <Element name="PDOParameterAvailable" visiblename="available PDO-Parameter" offlineaccess="read">
                                                                           <Element name="PDOInhibitTimeAvailable" visiblename="Inhibit Time available" offlineaccess="read">FALSE</Element>
@@ -11887,7 +14288,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                     <Parameter ParameterId="20983808" type="localTypes:Struct_PDOCommunicationParameter" IndexInDevDesc="29">
                                                                       <Attributes onlineaccess="read" driverSpecific="16#00000008" />
                                                                       <Value name="_x0032_0983808" visiblename="PDO 16#1403" onlineaccess="read">
-                                                                        <Element name="COBID" visiblename="COBID">16#00000564</Element>
+                                                                        <Element name="COBID" visiblename="COBID">16#00000550</Element>
                                                                         <Element name="TransmissionType" visiblename="Transmission Type">16#FE</Element>
                                                                         <Element name="PDOParameterAvailable" visiblename="available PDO-Parameter" offlineaccess="read">
                                                                           <Element name="PDOInhibitTimeAvailable" visiblename="Inhibit Time available" offlineaccess="read">FALSE</Element>
@@ -12545,7 +14946,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                     <Parameter ParameterId="25165824" type="localTypes:Struct_PDOCommunicationParameter" IndexInDevDesc="97">
                                                                       <Attributes onlineaccess="read" driverSpecific="16#00000008" />
                                                                       <Value name="_x0032_5165824" visiblename="PDO 16#1800" onlineaccess="read">
-                                                                        <Element name="COBID" visiblename="COBID">16#000001E4</Element>
+                                                                        <Element name="COBID" visiblename="COBID">16#000001D0</Element>
                                                                         <Element name="TransmissionType" visiblename="Transmission Type">16#FE</Element>
                                                                         <Element name="PDOParameterAvailable" visiblename="available PDO-Parameter" offlineaccess="read">
                                                                           <Element name="PDOInhibitTimeAvailable" visiblename="Inhibit Time available" offlineaccess="read">TRUE</Element>
@@ -12573,7 +14974,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                     <Parameter ParameterId="25169920" type="localTypes:Struct_PDOCommunicationParameter" IndexInDevDesc="99">
                                                                       <Attributes onlineaccess="read" driverSpecific="16#00000008" />
                                                                       <Value name="_x0032_5169920" visiblename="PDO 16#1801" onlineaccess="read">
-                                                                        <Element name="COBID" visiblename="COBID">16#000002E4</Element>
+                                                                        <Element name="COBID" visiblename="COBID">16#000002D0</Element>
                                                                         <Element name="TransmissionType" visiblename="Transmission Type">16#FE</Element>
                                                                         <Element name="PDOParameterAvailable" visiblename="available PDO-Parameter" offlineaccess="read">
                                                                           <Element name="PDOInhibitTimeAvailable" visiblename="Inhibit Time available" offlineaccess="read">TRUE</Element>
@@ -13074,7 +15475,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_7_0_0" visiblename="Disable PDO" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1400</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#80000264</Element>
+                                                                  <Element name="Value" visiblename="Value">16#80000250</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13218,7 +15619,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_19_0_0" visiblename="Set and enable COB-ID" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1400</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#00000264</Element>
+                                                                  <Element name="Value" visiblename="Value">16#00000250</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13230,7 +15631,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_20_0_0" visiblename="Disable PDO" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1401</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#80000364</Element>
+                                                                  <Element name="Value" visiblename="Value">16#80000350</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13374,7 +15775,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_32_0_0" visiblename="Set and enable COB-ID" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1401</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#00000364</Element>
+                                                                  <Element name="Value" visiblename="Value">16#00000350</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13386,7 +15787,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_33_0_0" visiblename="Disable PDO" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1402</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#80000464</Element>
+                                                                  <Element name="Value" visiblename="Value">16#80000450</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13530,7 +15931,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_45_0_0" visiblename="Set and enable COB-ID" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1402</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#00000464</Element>
+                                                                  <Element name="Value" visiblename="Value">16#00000450</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13542,7 +15943,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_46_0_0" visiblename="Disable PDO" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1403</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#80000564</Element>
+                                                                  <Element name="Value" visiblename="Value">16#80000550</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13686,7 +16087,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_58_0_0" visiblename="Set and enable COB-ID" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1403</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#00000564</Element>
+                                                                  <Element name="Value" visiblename="Value">16#00000550</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13698,7 +16099,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_59_0_0" visiblename="Disable PDO" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1800</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#800001E4</Element>
+                                                                  <Element name="Value" visiblename="Value">16#800001D0</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13866,7 +16267,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_73_0_0" visiblename="Set and enable COB-ID" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1800</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#000001E4</Element>
+                                                                  <Element name="Value" visiblename="Value">16#000001D0</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -13878,7 +16279,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_74_0_0" visiblename="Disable PDO" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1801</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#800002E4</Element>
+                                                                  <Element name="Value" visiblename="Value">16#800002D0</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -14046,7 +16447,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Value name="_x0035_36875008_88_0_0" visiblename="Set and enable COB-ID" offlineaccess="read" onlineaccess="read">
                                                                   <Element name="Index" visiblename="Index">16#1801</Element>
                                                                   <Element name="Subindex" visiblename="Subindex">16#01</Element>
-                                                                  <Element name="Value" visiblename="Value">16#000002E4</Element>
+                                                                  <Element name="Value" visiblename="Value">16#000002D0</Element>
                                                                   <Element name="Size" visiblename="Size">32</Element>
                                                                   <Element name="AbortIfError" visiblename="AbortIfError">FALSE</Element>
                                                                   <Element name="JumpToLine" visiblename="JumpToLine">FALSE</Element>
@@ -14089,7 +16490,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                             </Parameter>
                                                             <Parameter ParameterId="16" type="std:uint">
                                                               <Attributes download="false" offlineaccess="none" onlineaccess="none" />
-                                                              <Value name="_x0031_6" visiblename="NODEIDSAVED" offlineaccess="none" onlineaccess="none">100</Value>
+                                                              <Value name="_x0031_6" visiblename="NODEIDSAVED" offlineaccess="none" onlineaccess="none">80</Value>
                                                               <Name>NODEIDSAVED</Name>
                                                             </Parameter>
                                                             <Parameter ParameterId="256" type="std:BOOL">
@@ -22152,6 +24553,10 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                                                                 <Element name="_x0032_91504145_15" visiblename="Bit15" onlineaccess="read">FALSE</Element>
                                                               </Value>
                                                               <Name>Control-Word CTW-1</Name>
+                                                              <Mapping>
+                                                                <Element name="_x0032_91504145_11">Application.GVL.AbsEnc_ShiftPositive</Element>
+                                                                <Element name="_x0032_91504145_12">Application.GVL.AbsEnc_preset</Element>
+                                                              </Mapping>
                                                             </Parameter>
                                                             <Parameter ParameterId="295698449" type="std:UDINT">
                                                               <Attributes channel="input" onlineaccess="read" driverSpecific="16#00001F00" />
@@ -23215,6 +25620,7 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
               <Object Name="ACT_Init_entry_st" ObjectId="278d9492-e2ae-4210-9fc6-404c2e3a855d" />
             </Object>
             <Object Name="Task_10ms" ObjectId="12674cf4-d25e-4151-96b2-08a6cc6d1e52" />
+            <Object Name="Task_50ms" ObjectId="ca13ee2e-f496-4bc4-8fdb-aebb8234b3da" />
             <Object Name="CR721S_Config" ObjectId="47b983a9-d53f-49e6-bcee-eb4ac70f4850">
               <Object Name="config_inputs" ObjectId="7e9e7af3-857e-47dc-b598-56d5d9eb665b" />
               <Object Name="config_outgroups" ObjectId="3a27c8bc-c9c8-4536-96db-b44cca192ab7" />
@@ -23233,6 +25639,26 @@ IOWrapper.WRITE_OUTPUTS();	//Call IOWrapper Main Program and Write Data to Outpu
                   <Object Name="ACT_MD_Init_entry_st" ObjectId="724b859e-19b5-4313-b7b5-7d76963f46f2" />
                 </Object>
                 <Object Name="GVL_MD" ObjectId="addeaeee-fa53-4b13-9a65-3466078dadac" />
+              </Folder>
+              <Folder Name="NcuDriver">
+                <Object Name="POU_NCU_Comm_sfc" ObjectId="ba6649fb-8374-42a5-a4f9-2bf4b73d4512">
+                  <Object Name="ACT_VCUtoNCU" ObjectId="14ded107-761f-4a8d-bcd7-ce0cfa522c71" />
+                  <Object Name="ACT_CAN_Rx" ObjectId="3a2a8bc1-dfa0-446d-91c6-c25eddc7172b" />
+                  <Object Name="ACT_CAN_Tx" ObjectId="e8f45ef2-411e-428a-87eb-e34e4c5954d0" />
+                  <Object Name="ACT_NCUtoVCU" ObjectId="92cd2c7b-235e-430a-bc73-c105a0e5c4a7" />
+                  <Object Name="ACT_Cycle" ObjectId="2dc89800-929d-4c49-b264-d94f8469ca6b" />
+                </Object>
+                <Object Name="GVL_NCU" ObjectId="6e38e32e-264e-4f1b-99a1-b71d94dea74c" />
+                <Object Name="DUT_Column" ObjectId="2cc1fe80-7790-4753-9b76-01d274b87783" />
+                <Object Name="DUT_VCUtoNCU" ObjectId="211d435f-ed45-4061-9c66-010ea9d06b21" />
+                <Object Name="POU_NCU_Comm_sfc_1" ObjectId="f765198a-98fd-4561-a73a-a26d6d45da5a">
+                  <Object Name="ACT_VCUtoNCU" ObjectId="bf398e38-91e4-4d95-b5f0-d1bd3c12e6bc" />
+                  <Object Name="ACT_CAN_Rx" ObjectId="21d4f7af-e99d-4838-b9e8-e5f8c72c8452" />
+                  <Object Name="ACT_CAN_Tx" ObjectId="3fac041b-5ac3-4ade-ad79-8f030af829bf" />
+                  <Object Name="ACT_NCUtoVCU" ObjectId="1c98ca53-cb76-437d-94dc-9f53f391afa4" />
+                  <Object Name="ACT_Cycle" ObjectId="728edf68-075e-4be6-8598-590abe068111" />
+                  <Object Name="_aRCAN_Transmission_entry" ObjectId="1e46f45c-645e-4388-8d03-b17e0e57827b" />
+                </Object>
               </Folder>
             </Folder>
             <Object Name="POU_PW_Seq_sfc" ObjectId="54dc6693-0859-411d-a017-262d2e3b517f">
