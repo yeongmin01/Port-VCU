@@ -1,0 +1,8 @@
+# CODESYS temporary and generated files
+**.bootinfo
+**.bootinfo_guids
+**.compileinfo
+**.~u
+**.opt
+*.precompilecache
+.apsession
