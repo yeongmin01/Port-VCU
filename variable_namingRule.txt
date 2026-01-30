@@ -5,3 +5,7 @@
 # DO_Digital_Output
 # AI_Analog_Input
 # AO_Analog_Output
+# st_Struct_Variable
+# arr_Array_Variable
+# e_Enum_Variable
+
