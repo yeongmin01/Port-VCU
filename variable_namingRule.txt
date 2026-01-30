@@ -1,0 +1,7 @@
+# CONSTANT_VARIABLE
+# u8_Global_Variable
+# u16_Local_Variable
+# DI_Digital_Input
+# DO_Digital_Output
+# AI_Analog_Input
+# AO_Analog_Output
