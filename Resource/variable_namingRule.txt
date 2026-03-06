@@ -1,0 +1,12 @@
+# CONSTANT_VARIABLE
+# u8_Global_Variable
+# u16_Local_Variable
+# di_Digital_Input
+# do_Digital_Output
+# ai_Analog_Input
+# ao_Analog_Output
+# st_Struct_Variable
+# arr_Array_Variable
+# e_Enum_Variable
+
+
