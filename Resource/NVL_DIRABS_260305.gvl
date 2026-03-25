@@ -84,8 +84,8 @@ END_VAR]]></Declarations>
     <EventVariable>
     </EventVariable>
     <ProtocolSettings>
-      <ProtocolSetting Name="Port" Value="1202" />
       <ProtocolSetting Name="Broadcast Adr." Value="255.255.255.255" />
+      <ProtocolSetting Name="Port" Value="1202" />
     </ProtocolSettings>
   </NetvarSettings>
 </GVL>
