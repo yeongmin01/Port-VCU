@@ -1,0 +1,218 @@
+<GVL>
+  <Declarations><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	(*VCU STATUS*)
+	VCUu8_syncCount : BYTE;	//VCU-SyncCount
+	(*/VCU STATUS*)
+	
+	(*MODE STATUS*)
+	MODE_A : BOOL; //AUTO MODE
+	MODE_M : BOOL; //MANUAL MODE
+	(*/MODE STATUS*)
+	
+	(*AXIS SELECT*)
+	AXIS12_SELECT : USINT;
+	AXIS34_SELECT : USINT;
+	(*/AXIS SELECT*)
+	
+	(*NCU STATUS*)
+	NCUu8_syncCount : BYTE; //NCU-SyncCount
+	(*/NCU STATUS*)
+	
+	(*PLC <> HMI COMMU CHECK*)
+	b8TO_HMI : BYTE:=0; // 통신확인용 
+	b8To_HMI_feedback : BYTE :=0; // HMI에서 받으 값을 Retrun, HMI->PLC->HMI 값이 이상하다면 통신이 끊어진 상태
+	(*/PLC <> HMI COMMU CHECK*)
+	
+	(*LOW BATTERY*)
+	rLowBat_VOL : REAL;
+	rLowBat_Cur : REAL;
+	rLowBat_Soc : REAL;
+	rLowBat_Soh : REAL;
+	rLowBat_Temp :real;
+	(*/LOW BATTERY*)
+			
+	(*HD CONTROL*)
+	rLTT101_LITER : REAL;
+	rLTT101_Level : REAL;
+	rLTT101_Temp :  REAL;
+	rPT101 : REAL; // PT101 MainPump
+	rPT102 : REAL; // PT102 ACC Pump
+	rPT201 : REAL; // PT201 FNDL
+	rPT202 : REAL; // PT202 FNDR
+	rPT203 : REAL; // PT203 FDL
+	rPT204 : REAL; // P204 FDR
+	rPT205 : REAL; // P205 F-Parking
+	rPT211 : REAL; // P211 R-Parking
+
+	rAngle_Value : ARRAY[0..7] OF REAL; //HMI에 각도 확인 및 애커만조향 확인
+	rAxis1_AVG : REAL; //1축 평균각도 
+	rAxis2_AVG : REAL; //2축 평균각도  
+	rAxis3_AVG : REAL; //3축 평균각도 
+	rAxis4_AVG : REAL; //4축 평균각도 
+	
+	s16Fieldbus : ARRAY[0..3] OF INT; // 현재 필드버스 입력 정수 값 
+	rHMITarget_mA : ARRAY[0..3] OF REAL; //현재 필드버스 출력 전류 값
+	rCrabAngle : REAL; //Crab 주행시 Target 각도 
+	HDb1FilterErr: BOOL; //filter error 
+	
+	F_SBrake_State : BOOL; //F 서비스 브레이크 여자 여부확인 
+	R_SBrake_State : BOOL; //R 서비스 브레이크 여자 여부확인 
+	F_PBrake_State : BOOL; //F 파킹 브레이크 여자 여부확인 
+	R_PBrake_State : BOOL; //R 파킹 브레이크 여자 여부확인 
+	Y101_State : BOOL; // Y101 여자 여부 확인 
+	Y102_State : BOOL; // Y102 여자 여부 확인 
+	Y103_State : BOOL; // Y103 여자 여부 확인 
+	HD_STEP : uint; //유압 현재 작동 시퀀스 위치  
+	
+	b1Crab_Control : BOOL; 	 	//크랩 주행 상태 
+	b1PosAuto_Control : BOOL; 	//위치제어 자동조향 상태 
+	b1PosManu_Control : BOOL; 	//위치제어 수동조향 상태
+	b1PropManu_Control : BOOL;	//비례제어 상태 
+	b1NCU_Control : BOOL;       //NCU제어 상태 
+	(*/HD CONTROL*)
+		
+	(*MotorDrive*)
+	MDu32_PID_Out : REAL;	//PID OUT
+	MDu32_PID_KP : REAL;	//PID P-Gain
+	MDu32_PID_KI : REAL;	//PID I-Gain
+	MDu16_Speed_Req : INT;	//SPEED 목표값
+	MDu16_ResolverSpd : REAL;//SPEED현재값
+	MDu16_Torque_Req : INT;	//TORQUE 명령값
+	MDu1_PID_RESET : BOOL;
+	(*/MotorDrive*)
+	
+	(*PDU STATUS*)
+	PDr32In_Vol : REAL;      //입력 전압
+	PDr32Out_Vol : REAL;     //출력 전압 
+	PDr32SOC : REAL;  		 //충전량 
+	PDr32Cur : REAL;  		 //전류값
+	PDu8ChargeState : USINT; //Charging STATE
+	
+	PDb1Relay1 : BOOL; //Motor. EHPS HV
+	PDb1Relay2 : BOOL; //Motor. EHPS HV Precharging
+	PDb1Relay3 : BOOL; //Charging
+	PDb1Relay4 : BOOL; //Negatiave
+	PDb1Relay5 : BOOL; //LDC
+	PDb1Relay6 : BOOL; //TMS
+	PDb1Relay7 : BOOL; //TMS precharging
+	PDb1Relay8 : BOOL; //heating
+	
+	PDu16_CellHT : INT;     //PDU 최대온도
+	PDu16_CellHTNum: UINT;  //PDU 최대온도 셀위치
+	PDu16_CellLT : INT;     //PDU 최소온도
+	PDu16_CellLTNum : UINT; //PDU 최소온도 셀위치
+	
+	PDr32SOH : REAL; //PDU SOH 
+	(*/PDU STATUS*)
+	
+	(*Emergency Switch*)
+	b1EMG_FR : BOOL; //IN1003:Emergency Switch #01
+	b1EMG_FL : BOOL; //IN1100:Emergency Switch #02
+	b1EMG_CL : BOOL; //IN1101:Emergency Switch #03
+	b1EMG_RL : BOOL; //IN1102:Emergency Switch #04
+	b1EMG_RR : BOOL; //IN1103:Emergency Switch #05
+	b1EMG_CR : BOOL; //IN1200:Emergency Switch #06
+	(*/Emergency Switch*)
+	
+	(*BUMP SENSOR*)
+	b1BUMP_FR : BOOL;//IN1202:Bumper#01
+	b1BUMP_FL : BOOL;//IN1203:Bumper#02
+	b1BUMP_RL : BOOL;//IN1300:Bumper#03
+	b1BUMP_RR : BOOL;//IN1301:Bumper#04
+	(*/BUMP SENSOR*)
+	
+	(*Load Sensor*)
+	b1PSS1_R : BOOL;//안착센서 #01
+	b1PSS1_L : BOOL;//안착센서 #02
+	b1PSS2_R : BOOL;//안착센서 #03
+	b1PSS2_L : BOOL;//안착센서 #04
+	
+	b1PSS3_R : BOOL;//안착센서 #05
+	b1PSS3_L : BOOL;//안착센서 #06
+	b1PSS4_R : BOOL;//안착센서 #07
+	b1PSS4_L : BOOL;//안착센서 #08
+	(*/Load Sensor*)
+	
+	(*Door Sensor*)
+	b1DOOR1 : BOOL;//도어센서#01
+	b1DOOR2 : BOOL;//도어센서#02
+	b1DOOR3 : BOOL;//도어센서#03
+	b1DOOR4 : BOOL;//도어센서#04
+	(*/Door Sensor*)
+	
+	(*Panel Temp/Humid Sensor*)
+	r32PN_HUMI1 : REAL;		//Pannel_1 Huminity
+	r32PN_TEMP1 : REAL;		//Pannel_1 Temparature1 
+	r32PN_HUMI2 : REAL;		//Panel_2 Huminity
+ 	r32PN_TEMP2 : REAL;     //Panel_2 Temperature
+	(*/Panel Temp/Humid Sensor*)
+
+	(*MC Status*)
+	b1MC1_Status : BOOL; //MC1 상태체크 
+	b1MC2_Status : BOOL; //MC2 상태체크 	
+	b1MC3_Status : BOOL; //MC3 상태체크 		
+	b1MC4_Status : BOOL; //MC4 상태체크 
+	(*/MC Status*)
+
+	
+	(*RemoteControl*)
+	RCu8_rotReq : USINT;	//Steering Request 
+	RCu8_spdReq : USINT;	//Speed request
+	RCu1_EMS_DK31 : BOOL;	//Emergency stop
+	RCu1_S1_DK2 : BOOL;		//S1 input 
+	RCu1_rot_DK3 : BOOL;	//rotation input 
+	RCu1_spd_DK5 : BOOL;	//speed input
+	RCu1_S11_LG11 : BOOL;	//S11 input
+	RCu1_S12_LG12 : BOOL;	//S12 input
+	RCu1_admoMode_DK13 : BOOL;	//admo Mode
+	RCu1_S2_DK14 : BOOL;	//S2 input
+	RCu1_S3_DK15 : BOOL;	//+100 input
+	RCu1_S3_DK16 : BOOL;	//-100 input
+	RCu1_S4_DK17 : BOOL;	//+10 input
+	RCu1_S4_DK18 : BOOL;	//-10 input
+	RCu1_S5_DK19 : BOOL;	//+1 input
+	RCu1_S5_DK20 : BOOL;	//-1 input
+	RCu1_manu_DK21 : BOOL;	//Manual
+	RCu1_auto_DK22 : BOOL;	//Automatic
+	RCu1_fwd_DK23 : BOOL;	//Foward
+	RCu1_bwd_DK24 : BOOL;	//Backward
+	RCu1_fbSync_DK25 : BOOL;//FB Sync
+	RCu1_admoSet_DK26 : BOOL;//admo Set
+	RCu1_redKey_DK27 : BOOL; //Key input
+	RCu1_start_DK1 : BOOL;	//Remote Start
+	RCu1_normal_DK32 : BOOL;	//Normal
+	RCu1_statusStop : BOOL;	//Stop State
+	RCu1_statusStart : BOOL;//Started State
+	RCu8_RSSI : USINT;		//RC signal strength
+	(*/RemoteControl*)
+	
+	(*AutoLubric*)
+	b1AutoLubric_Err : BOOL; //자동급유기 에러 
+	b1AutoLubricError : BOOL; 
+	(*/AutoLubric*)
+	
+	(*EMS*)
+	u1_MDStop : BOOL;
+	(*/EMS*)
+	
+
+END_VAR]]></Declarations>
+  <NetvarSettings Protocol="UDP">
+    <ListIdentifier>1</ListIdentifier>
+    <Pack>True</Pack>
+    <Checksum>False</Checksum>
+    <Acknowledge>False</Acknowledge>
+    <CyclicTransmission>True</CyclicTransmission>
+    <TransmissionOnChange>False</TransmissionOnChange>
+    <TransmissionOnEvent>False</TransmissionOnEvent>
+    <Interval>T#50ms</Interval>
+    <MinGap>T#20ms</MinGap>
+    <EventVariable>
+    </EventVariable>
+    <ProtocolSettings>
+      <ProtocolSetting Name="Broadcast Adr." Value="255.255.255.255" />
+      <ProtocolSetting Name="Port" Value="1204" />
+    </ProtocolSettings>
+  </NetvarSettings>
+</GVL>
