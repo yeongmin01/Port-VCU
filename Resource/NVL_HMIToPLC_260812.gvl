@@ -1,0 +1,92 @@
+<GVL>
+  <Declarations><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	(*유압 비례OPEN 변경*)
+	rRightOpenValve : REAL :=18.0;
+	rLeftOpenValve : REAL :=6.0;
+	
+	(*RESET  ***PB물리버튼*** 대응*)
+	b1RESET     : BOOL;     //리셋버튼 
+
+	(*유압 비례제어 AbsEncoder원점조정*)
+	b1NFL_Abs_ReturnOrigin:BOOL; //Non Front Left 원점복귀
+	b1NFR_Abs_ReturnOrigin:BOOL; //Non Front Right 원점복귀
+	b1FL_Abs_ReturnOrigin:BOOL;  //Front Left 원점복귀
+	b1FR_Abs_ReturnOrigin:BOOL;  //Front Right 원점복귀
+	b1RL_Abs_ReturnOrigin:BOOL;  //Rear Left 원점복귀
+	b1RR_Abs_ReturnOrigin:BOOL;  //Rear Right 원점복귀
+	b1NRL_Abs_ReturnOrigin:BOOL; //Non Rear Left 원점복귀
+	b1NRR_Abs_ReturnOrigin:BOOL; //Non Rear Right 원점복귀
+	
+	R_ANG_FNDirIdeal:REAL; // 위치조향입력수동제어 Front Non Drive
+	R_ANG_FDirIdeal:REAL;  // 위치조향입력수동제어 Front Drive
+	R_ANG_RDirIdeal:REAL;  // 위치조향입력수동제어 Rear Drive 
+	R_ANG_RNDirIdeal:REAL; // 위치조향입력수동제어 Rear Non Drive
+ 
+	(*유압 제어 모드*) 
+	b1Prop_EXE : BOOL :=FALSE;			//비례제어 
+	b1Individ_EXE : BOOL :=FALSE;		//축개별제어 실행여부
+	b1Pos_EXE : BOOL :=FALSE;			//위치제어(NCU용 예정)
+	b1Dir_EXE : BOOL :=FALSE;			//조이스틱 위치제어
+	b1Crab_Control_Type : BOOL :=FALSE; //크랩주행선택모드
+	
+	(*유압 축별 개별 제어*) 
+	b1Control1:BOOL:=FALSE;; //1축제어
+	b1Control2:BOOL:=FALSE;; //2축제어
+	b1Control3:BOOL:=FALSE;; //3축제어 
+	b1Control4:BOOL:=FALSE;; //4축제어 
+
+	(*유압 PID 제어*)
+	rKp_mA : REAL := 1.5;   (* 감도: 오차 1도당 1mA씩, *)
+	rKi_mA : REAL := 1.5;   (* I게인: 미세 오차 잡는 힘 (클수록 끝까지 밀어붙임) *)
+    rKd_mA : REAL := 0;  (* D게인: 급발진 방지 브레이크 (클수록 진동 억제) *)
+	rMinDeadBand_mA : REAL := 1; (*초기값 0.1mA*) 
+	
+	(*유압 SOL 제어*)
+	b1Y101 : BOOL := FALSE;
+	b1Y102 : BOOL := FALSE;
+	b1Y103 : BOOL := FALSE; 
+	
+	(*유압 Brake SOL 제어*)
+	b1Y213_F_SB: BOOL :=FALSE;
+	b1Y214_F_PB: BOOL :=FALSE;
+	b1Y223_R_SB: BOOL :=FALSE;
+	b1Y224_R_PB: BOOL :=FALSE;
+	
+	
+	(*HMI<>PLC NVL UDP통신 체크*)
+	b8TO_PLC: BYTE; // HMI <> PLC 통신확인용 
+	b8To_PLC_Feedback : BYTE; // PLC 에서 받은 값을 다시 Return, 피드백값이 이상하다면 PLC-> HMI 통신이 끊어진상황
+	
+	(*자동급유기 수동 조작 버튼*)
+	b1AutoLubric_ACT : BOOL;
+	
+	(*OFFSET AutoCalibration 조작 버튼*)
+	bAutoZero1 : BOOL;
+	bAutoZero2 : BOOL;
+	bAutoZero3 : BOOL;
+	bAutoZero4 : BOOL;
+	ZeroTarget : ARRAY[0..3] OF REAL;
+	
+	(*HD INV*)
+	HD_INV_RUN : WORD :=2;
+	HD_INV_STOP: WORD :=0;
+END_VAR]]></Declarations>
+  <NetvarSettings Protocol="UDP">
+    <ListIdentifier>1</ListIdentifier>
+    <Pack>True</Pack>
+    <Checksum>False</Checksum>
+    <Acknowledge>False</Acknowledge>
+    <CyclicTransmission>True</CyclicTransmission>
+    <TransmissionOnChange>False</TransmissionOnChange>
+    <TransmissionOnEvent>False</TransmissionOnEvent>
+    <Interval>T#50ms</Interval>
+    <MinGap>T#20ms</MinGap>
+    <EventVariable>
+    </EventVariable>
+    <ProtocolSettings>
+      <ProtocolSetting Name="Broadcast Adr." Value="255.255.255.255" />
+      <ProtocolSetting Name="Port" Value="1205" />
+    </ProtocolSettings>
+  </NetvarSettings>
+</GVL>
