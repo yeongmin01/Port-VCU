@@ -3,48 +3,94 @@
 VAR_GLOBAL
 
 	(*MotorDrive*)
-	MDu32_PID_Out : REAL;	//PID OUT(Torqe)
-	MDu32_PID_KP : REAL;	//PID P-Gain
-	MDu32_PID_KI : REAL;	//PID I-Gain
-	MDu16_Speed_Req : INT;	//목표값 (Speed)
-	MDu16_ResolverSpd : INT;//현재값 (Speed)
+	MDu32_PID_Out : REAL;		//PID OUT(Torqe)
+	MDu32_PID_KP : REAL;		//PID P-Gain
+	MDu32_PID_KI : REAL;		//PID I-Gain
+	MDu16_Speed_Req : INT;		//목표값 (Speed)
+	MDu16_ResolverSpd : INT;	//현재값 (Speed)
 	MDu16_Torque_F_Req : INT;	//명령값 (Torqe)
 	MDu16_Torque_R_Req : INT;	//명령값 (Torqe)
 	MDu1_PID_RESET : BOOL;
 	
-	MD_Velocity_Front_MMpS : INT := 0;
-	MD_Velocity_Rear_MMpS : INT := 0;
-	MD_Velocity_KpH : REAL := 0;
+	MD_Velocity_Front_MMpS : INT;
+	MD_Velocity_Rear_MMpS : INT;
+	MD_Velocity_KpH : REAL;
 	(*/MotorDrive*)
-	
 	(*HD*)
-	rPT102 : REAL; // PT102 ACC Pump
+	rPT102 : REAL; //PT102 ACC Pump
 	
 	rAxis1_AVG : REAL; //1축 평균각도 
 	rAxis2_AVG : REAL; //2축 평균각도  
 	rAxis3_AVG : REAL; //3축 평균각도 
 	rAxis4_AVG : REAL; //4축 평균각도 
 	
-	rHMITarget_mA : ARRAY[0..3] OF REAL; //현재 필드버스 출력 전류 값
-	
 	HD_STEP : UINT; //유압 현재 작동 시퀀스 위치  
 	
-	ErrorDeg: ARRAY[0..3] OF REAL; //target각도와 현재 각도 차이
-	NFD_JOY_Ang:REAL :=0.0; // 조이스틱 오토 조작 조향각 제어 Front Non Drive
-	FD_JOY_Ang:REAL  :=0.0;  // 조이스틱 오토 조작 조향각 제어 Front Drive
-	RD_JOY_Ang:REAL  :=0.0;  // 조이스틱 오토 조작 조향각 제어 Rear Drive(*/HD*)
-    NRD_JOY_Ang:REAL :=0.0; // 조이스틱 오토 조작 조향각 제어 Rear Non Drive
-	TargetCrab :REAL :=0.0; //crab주행 각도 
+	NFD_JOY_Ang:REAL; // 조이스틱 오토 조작 조향각 제어 Front Non Drive
+	FD_JOY_Ang:REAL;  // 조이스틱 오토 조작 조향각 제어 Front Drive
+	RD_JOY_Ang:REAL;  // 조이스틱 오토 조작 조향각 제어 Rear Drive
+    NRD_JOY_Ang:REAL; // 조이스틱 오토 조작 조향각 제어 Rear Non Drive
+	TargetCrab :REAL; //crab주행 각도 
 	
-	NCU_Target_Deg: ARRAY[0..3] OF REAL; // NCU 지령 각도 
+	AutoSteerAngle1 : REAL; //1축 Req 
+	AutoSteerAngle2 : REAL; //2축 Req 
+	AutoSteerAngle3 : REAL; //3축 Req 
+	AutoSteerAngle4 : REAL; //4축 Req 
+	
+	AbsEnc_Raw_1L : UDINT; //Abs_Enc 1L 
+	AbsEnc_Raw_1R : UDINT; //Abs_Enc 1R 
+	AbsEnc_Raw_2L : UDINT; //Abs_Enc 2L 
+	AbsEnc_Raw_2R : UDINT; //Abs_Enc 2R 
+	AbsEnc_Raw_3L : UDINT; //Abs_Enc 3L 
+	AbsEnc_Raw_3R : UDINT; //Abs_Enc 3R 
+	AbsEnc_Raw_4L : UDINT; //Abs_Enc 4L 
+	AbsEnc_Raw_4R : UDINT; //Abs_Enc 4R 
+	AbsEnc_filt_1L : UDINT; //Abs_Enc Filt 1L 
+	AbsEnc_filt_1R : UDINT; //Abs_Enc Filt 1R 
+	AbsEnc_filt_2L : UDINT; //Abs_Enc Filt 2L 
+	AbsEnc_filt_2R : UDINT; //Abs_Enc Filt 2R 
+	AbsEnc_filt_3L : UDINT; //Abs_Enc Filt 3L 
+	AbsEnc_filt_3R : UDINT; //Abs_Enc Filt 3R 
+	AbsEnc_filt_4L : UDINT; //Abs_Enc Filt 4L 
+	AbsEnc_filt_4R : UDINT; //Abs_Enc Filt 4R 
+	
 	(*/HD*)
 
-	(*Encoder*)
-	(*/Encoder*)
+	(*TPMS*)
+	TPMS_1L_T : USINT; //1축 Left 온도 
+	TPMS_1L_P : REAL; //1축 Left 압력 
+	TPMS_1R_T : USINT; //1축 Right 온도 
+	TPMS_1R_P : REAL; //1축 Right 압력 
+	TPMS_2L_T : USINT; //2축 Left 온도 
+	TPMS_2L_P : REAL; //2축 Left 압력 
+	TPMS_2R_T : USINT; //2축 Right 온도 
+	TPMS_2R_P : REAL; //2축 Right 압력 
+	TPMS_3L_T : USINT; //3축 Left 온도 
+	TPMS_3L_P : REAL; //3축 Left 압력 
+	TPMS_3R_T : USINT; //3축 Right 온도 
+	TPMS_3R_P : REAL; //3축 Right 압력 
+	TPMS_4L_T : USINT; //4축 Left 온도 
+	TPMS_4L_P : REAL; //4축 Left 압력 
+	TPMS_4R_T : USINT; //4축 Right 온도 
+	TPMS_4R_P : REAL; //4축 Right 압력 
+	(*/TPMS*)
+	
+	(*PDU*)
+	PDU_VOLT : REAL;	//PDU Vol_Interior_Bat
+	PDU_SOC : REAL;		//PDU Soc
+	PDU_Cur : REAL;		//PDU Cur
+	(*/PDU*)
 
 	(*EMS*)
 	u1_MDStop : BOOL;
 	(*/EMS*)
+	
+	(*NCUCommData*)
+	Velocity_Req_F : REAL;
+	Velocity_Req_R : REAL;
+	Velocity_Cur_F : INT;
+	Velocity_Cur_R : INT;
+	(*/NCUCommData*)
 END_VAR]]></Declarations>
   <NetvarSettings Protocol="UDP">
     <ListIdentifier>7</ListIdentifier>
