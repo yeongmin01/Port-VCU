@@ -23,6 +23,10 @@ VAR_GLOBAL
 	rAxis2_AVG : REAL; //2축 평균각도  
 	rAxis3_AVG : REAL; //3축 평균각도 
 	rAxis4_AVG : REAL; //4축 평균각도 
+	rAxis1_AVG_TEST : REAL; //필터 1축평균 각도
+	rAxis2_AVG_TEST : REAL; //필터 2축평균 각도
+	rAxis3_AVG_TEST : REAL; //필터 3축평균 각도
+	rAxis4_AVG_TEST : REAL; //필터 4축평균 각도
 	
 	HD_STEP : UINT; //유압 현재 작동 시퀀스 위치  
 	
@@ -105,8 +109,8 @@ END_VAR]]></Declarations>
     <EventVariable>
     </EventVariable>
     <ProtocolSettings>
-      <ProtocolSetting Name="Broadcast Adr." Value="255.255.255.255" />
       <ProtocolSetting Name="Port" Value="1202" />
+      <ProtocolSetting Name="Broadcast Adr." Value="255.255.255.255" />
     </ProtocolSettings>
   </NetvarSettings>
 </GVL>
