@@ -49,14 +49,14 @@ VAR_GLOBAL
 	AbsEnc_Raw_3R : UDINT; //Abs_Enc 3R 
 	AbsEnc_Raw_4L : UDINT; //Abs_Enc 4L 
 	AbsEnc_Raw_4R : UDINT; //Abs_Enc 4R 
-	AbsEnc_filt_1L : UDINT; //Abs_Enc Filt 1L 
-	AbsEnc_filt_1R : UDINT; //Abs_Enc Filt 1R 
-	AbsEnc_filt_2L : UDINT; //Abs_Enc Filt 2L 
-	AbsEnc_filt_2R : UDINT; //Abs_Enc Filt 2R 
-	AbsEnc_filt_3L : UDINT; //Abs_Enc Filt 3L 
-	AbsEnc_filt_3R : UDINT; //Abs_Enc Filt 3R 
-	AbsEnc_filt_4L : UDINT; //Abs_Enc Filt 4L 
-	AbsEnc_filt_4R : UDINT; //Abs_Enc Filt 4R 
+	AbsEnc_filt_1L : REAL; //Abs_Enc Filt 1L 
+	AbsEnc_filt_1R : REAL; //Abs_Enc Filt 1R 
+	AbsEnc_filt_2L : REAL; //Abs_Enc Filt 2L 
+	AbsEnc_filt_2R : REAL; //Abs_Enc Filt 2R 
+	AbsEnc_filt_3L : REAL; //Abs_Enc Filt 3L 
+	AbsEnc_filt_3R : REAL; //Abs_Enc Filt 3R 
+	AbsEnc_filt_4L : REAL; //Abs_Enc Filt 4L 
+	AbsEnc_filt_4R : REAL; //Abs_Enc Filt 4R 
 	
 	(*/HD*)
 
@@ -109,8 +109,8 @@ END_VAR]]></Declarations>
     <EventVariable>
     </EventVariable>
     <ProtocolSettings>
-      <ProtocolSetting Name="Port" Value="1202" />
       <ProtocolSetting Name="Broadcast Adr." Value="255.255.255.255" />
+      <ProtocolSetting Name="Port" Value="1202" />
     </ProtocolSettings>
   </NetvarSettings>
 </GVL>
